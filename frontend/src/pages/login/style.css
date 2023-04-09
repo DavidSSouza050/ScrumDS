@@ -1,0 +1,16 @@
+body{
+    background: #39574C;
+}
+
+#containerLogon{
+    width: 400px;
+    min-height: 500px;
+    height: auto;
+    overflow: hidden;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 200px;
+}
+

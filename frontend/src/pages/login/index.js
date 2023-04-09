@@ -4,11 +4,13 @@ import './style.css';
 import letter from '../../assets/svg/latter.svg';
 
 import IconLogon from '../../assets/svg/IconLogon.svg'
+import SendButton from '../../components/buttonSend';
+import Checkbox from '../../components/checkboox/Index';
 
 export default function Login(){
     
     return(
-        <>
+        <div className='container' style={{backgroundColor: '#39574C'}}>
 
             <div id='containerLogon'>
 
@@ -27,11 +29,15 @@ export default function Login(){
                     img={letter}
                     type="password"
                 />
-                
 
-                
+                <Checkbox/>
+
+                <SendButton
+                    nome="Entrar"
+                />
+
             </div>
 
-        </>
+        </div>
     )
 }

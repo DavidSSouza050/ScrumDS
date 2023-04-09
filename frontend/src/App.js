@@ -10,7 +10,6 @@ import Home from './pages/home';
 
 function App() {
   return (
-   
 
     <BRouter>
       <Routes>
@@ -19,7 +18,6 @@ function App() {
       </Routes>
     </BRouter>
    
-    
   );
 }
 

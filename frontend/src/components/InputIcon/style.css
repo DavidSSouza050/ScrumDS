@@ -6,7 +6,8 @@
     flex-direction: column;
 }
 
-label{
+
+.labelInputIcon{
     font: 500 14px Roboto, sans-serif;
     padding-bottom: 10px;
     color: #fff;
@@ -17,10 +18,8 @@ label{
     gap: 5px;
     width: 100%;
     height: 48px;
-    color: #fff;
     padding-left: 5px;
-    
-    border: 1px solid #79E3BD;
+    background: #22342E;
     border-radius: 4px;
 
     flex: none;
@@ -33,20 +32,19 @@ label{
     margin-bottom: 150px;
 }
 
-input{
+.InputText{
     width: 100%;
     height: 40px;
     color: #fff;
-    background-color: #39574C;
+    background: none;
     border: none;
     
 }
 
-input::placeholder{
+.InputText::placeholder{
     color: #E1E1E6;
 }
 
 .containerInputIcon:hover{
-
-    border: 3px solid #79E3BD;
+    border: 2px solid #79E3BD;
 }

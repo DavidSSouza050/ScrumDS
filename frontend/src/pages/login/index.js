@@ -5,7 +5,7 @@ import letter from '../../assets/svg/latter.svg';
 
 import IconLogon from '../../assets/svg/IconLogon.svg'
 import SendButton from '../../components/buttonSend';
-import Checkbox from '../../components/checkboox/Index';
+import Checkbox from '../../components/checkbox/Index';
 
 export default function Login(){
     
@@ -30,7 +30,10 @@ export default function Login(){
                     type="password"
                 />
 
-                <Checkbox/>
+                <Checkbox
+                    texto="Lembre-se de mim"
+                    event={(value)=>{console.log(value.target.checked)}} 
+                />
 
                 <SendButton
                     nome="Entrar"

@@ -1,7 +1,7 @@
 import './style.css'
 
-export default function SendButton(prosp){
+export default function SendButton(props){
     return(
-        <button className='sendButton'>{prosp.nome}</button>
+        <button className='sendButton'>{props.nome}</button>
     )
 }

@@ -3,16 +3,16 @@ import './style.css'
 
 
 
-export default function InputIcon(prosp) {
+export default function InputIcon(props) {
 
     return(
         <div className='containerInput'>
-            <label className="labelInputIcon" for={prosp.nome}>{prosp.nome}</label>
+            <label className="labelInputIcon" for={props.nome}>{props.nome}</label>
             <div className='containerInputIcon'>
                 <span>
-                    <img src={prosp.img} alt="Coloca o email"/>
+                    <img src={props.img} alt="Coloca o email"/>
                 </span>
-                <input className="InputText" type={prosp.type} placeholder={prosp.placeholder} name={prosp.nome} id={prosp.nome}/>
+                <input className="InputText" type={props.type} placeholder={props.placeholder} name={props.nome} id={props.nome}/>
             </div>
         </div>
     );

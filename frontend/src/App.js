@@ -4,7 +4,7 @@ import './global.css';
 
 
 import Login from './pages/login';
-import Home from './pages/home';
+import Project from './pages/project';
 
 
 
@@ -14,7 +14,7 @@ function App() {
     <BRouter>
       <Routes>
         <Route path='/' element={<Login/>} />
-        <Route path='/home' element={<Home/>} />
+        <Route path='/project' element={<Project/>} />
       </Routes>
     </BRouter>
    

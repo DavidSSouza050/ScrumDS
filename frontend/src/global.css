@@ -13,4 +13,10 @@ input, button, textarea{
 
 button, a{
     cursor: pointer;
+    text-decoration: none;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
 }

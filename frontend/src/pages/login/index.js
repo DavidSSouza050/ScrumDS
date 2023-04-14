@@ -6,6 +6,7 @@ import letter from '../../assets/svg/latter.svg';
 import IconLogon from '../../assets/svg/IconLogon.svg'
 import SendButton from '../../components/buttonSend';
 import Checkbox from '../../components/checkbox/Index';
+import { Link } from 'react-router-dom';
 
 export default function Login(){
     
@@ -35,9 +36,12 @@ export default function Login(){
                     event={(value)=>{console.log(value.target.checked)}} 
                 />
 
-                <SendButton
-                    nome="Entrar"
-                />
+                <Link to="/project">
+                    <SendButton
+                        nome="Entrar"
+                    />
+                </Link>
+                
 
             </div>
 

@@ -1,5 +1,4 @@
 
-import InputIcon from '../../components/InputIcon';
 import './style.css';
 import letter from '../../assets/svg/latter.svg';
 
@@ -7,6 +6,7 @@ import IconLogon from '../../assets/svg/IconLogon.svg'
 import SendButton from '../../components/buttonSend';
 import Checkbox from '../../components/checkbox/Index';
 import { Link } from 'react-router-dom';
+import InputIcon from '../../components/Input';
 
 export default function Login(){
     
@@ -40,6 +40,10 @@ export default function Login(){
                     <SendButton
                         nome="Entrar"
                     />
+                </Link>
+                
+                <Link to="/userCreate">
+                    <span id="linkCreate" >Não possui conta? Crie uma agora</span>
                 </Link>
                 
 

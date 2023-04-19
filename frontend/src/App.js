@@ -5,6 +5,7 @@ import './global.css';
 
 import Login from './pages/login';
 import Project from './pages/project';
+import UserCreate from './pages/userCreate';
 
 
 
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login/>} />
         <Route path='/project' element={<Project/>} />
+        <Route path='/userCreate' element={<UserCreate/>} />
       </Routes>
     </BRouter>
    

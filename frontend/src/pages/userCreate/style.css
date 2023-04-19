@@ -1,0 +1,57 @@
+#container{
+    width: 100vw;
+    height: 100vh;
+    background-color: #39574C;
+    position: absolute;
+}
+
+#containerLogo{
+    width: 300px;
+    height: 100px;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+
+#containerForm{
+    width: 800px;
+    height: 500px;
+    margin-top: 70px;
+}
+
+
+#containerFormGroup{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.formGroup{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#containerButton{
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:30px;
+}
+
+#alinButton{
+    width: 400px;
+}
+
+.span{
+    color: white;
+    line-height: 17px;
+    font: 400 14px Ronoto, sans-serif;
+    text-decoration-line: underline;
+}

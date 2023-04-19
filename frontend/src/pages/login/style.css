@@ -13,13 +13,21 @@
     margin-left: auto;
     margin-right: auto;
 
-    margin-top: 200px;
+    margin-top: 150px;
 
     display: flex;
     flex-direction: column;
+    
     gap: 10px;
 }
 
 
-
+#linkCreate{
+    text-decoration: none;
+    color: white;
+    line-height: 17px;
+    font: 400 14px Ronoto, sans-serif;
+    text-decoration-line: underline;
+    margin-left: 80px;
+}
 

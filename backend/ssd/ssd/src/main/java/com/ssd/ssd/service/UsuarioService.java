@@ -1,0 +1,158 @@
+package com.ssd.ssd.service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
+import com.ssd.ssd.entity.UsuarioEntity;
+import com.ssd.ssd.entity.factory.UsuarioEntityFactory;
+import com.ssd.ssd.enumerator.StatusEnum;
+import com.ssd.ssd.exception.DadosJaCadastradosException;
+import com.ssd.ssd.exception.MsgException;
+import com.ssd.ssd.exception.NaoEncontradoException;
+import com.ssd.ssd.exception.ParametroInvalidoException;
+import com.ssd.ssd.repository.UsuarioRepository;
+import com.ssd.ssd.vo.UsuarioVO;
+import com.ssd.ssd.vo.factory.UsuarioVOFactory;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class UsuarioService {
+	
+	private final UsuarioRepository usuarioRepository;
+	
+	private static final String EMAIL_JA_CADASTRADO = " Já existe usuario cadastrado com esse email ";
+	private static final String CPF_JA_CADASTRADO = " Já existe usuario cadastrado com esss CPF ";
+	private static final String SENHA_INVALIDO = " Senha inválida ";
+	private static final String DIGITOS_CPF_INVALIDO = " Dígitos CPF inválidos";
+//	private static final String EMAIL_INVALIDO = " Digite um email válido ";
+	
+	@Transactional
+	public UsuarioVO cadastrar(UsuarioVO usuario) {
+		
+		validarSenhaConfirmada(usuario.getSenha(), usuario.getSenhaConfirmada());
+		
+		Boolean validPassword = isValidPassword(usuario.getSenha());
+		
+		if(!Objects.equals(Boolean.TRUE.toString(), validPassword.toString())) {
+			throw new MsgException(SENHA_INVALIDO);
+		}
+		Optional<UsuarioEntity> optionalByCpf = usuarioRepository.findByCpf(usuario.getCpf());
+		if(optionalByCpf.isPresent()) {
+			throw new DadosJaCadastradosException(CPF_JA_CADASTRADO);
+		}
+		Optional<UsuarioEntity> optionalByEmail = usuarioRepository.findByEmail(usuario.getEmail());
+		if(optionalByEmail.isPresent()) {
+			throw new DadosJaCadastradosException(EMAIL_JA_CADASTRADO);
+		}
+		
+		UsuarioEntity usuarioEntity = UsuarioEntityFactory.converterParaEntity(usuario);
+		usuarioRepository.save(usuarioEntity);
+
+		return UsuarioVOFactory.converterParaVO(usuarioEntity);
+	}
+
+	public UsuarioVO recuperar(Long id) {
+
+		UsuarioEntity usuarioBanco = recuperarUsuario(id);
+
+		return UsuarioVOFactory.converterParaVO(usuarioBanco);
+	}
+
+	private UsuarioEntity recuperarUsuario(Long id) {
+
+		return usuarioRepository.findById(id)
+				.orElseThrow(() -> new NaoEncontradoException("Usuario não encontrado " + id));
+	}
+	
+	@Transactional
+	public UsuarioVO alterar(UsuarioVO usuario) {
+		
+		validarCpf(usuario.getCpf());
+		
+		UsuarioEntity usuarioBanco = recuperarUsuario(usuario.getId());
+		
+		usuarioBanco = UsuarioEntityFactory.alterar(usuario);
+		
+		usuarioRepository.save(usuarioBanco);
+
+		return UsuarioVOFactory.converterParaVO(usuarioBanco);
+	}
+	
+	public UsuarioVO recuperarPorCpf(String cpf) {
+
+		validarCpf(cpf);
+
+		UsuarioEntity usuarioByCpf = usuarioRepository.findByCpf(cpf)
+				.orElseThrow(() -> new NaoEncontradoException("Usuário com " + cpf + " não encontrado"));
+
+		return UsuarioVOFactory.converterParaVO(usuarioByCpf);
+	}
+	
+	@Transactional
+	public UsuarioVO ativarCadastro(Long idUsuario) {
+
+		UsuarioEntity usuarioBanco = recuperarUsuario(idUsuario);
+
+		usuarioBanco.setStatus(StatusEnum.ATIVO);
+
+		usuarioRepository.save(usuarioBanco);
+
+		return UsuarioVOFactory.converterParaVO(usuarioBanco);
+	}
+	
+	public List<UsuarioVO> listaUsuarios() {
+
+		StatusEnum pendente = StatusEnum.PENDENTE;
+		List<UsuarioEntity> usuarios = usuarioRepository.findByStatusPendentes(pendente);
+
+		if (usuarios.isEmpty()) {
+			throw new NaoEncontradoException("Usuários nao encontrados");
+		}
+
+		return UsuarioVOFactory.converterParaList(usuarios);
+	}
+	
+	private void validarSenhaConfirmada(String senha, String senhaConfirmada) {
+
+		if (!Objects.equals(senha, senhaConfirmada)) {
+			throw new MsgException("Senha diferentes");
+		}
+	}
+	
+	public static Boolean isValidPassword(String password){
+		  
+        // Regex to check valid password.
+        String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
+  
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+  
+        // If the password is empty // return false
+        if (password == null) {
+            return false;
+        }
+        // Pattern class contains matcher() method // to find matching between given password // and regular expression.
+        Matcher m = p.matcher(password);
+  
+        // Return if the password // matched the ReGex
+        return m.matches();
+    }
+
+	private void validarCpf(String cpf) {
+		
+		if(cpf.length() != 11) {
+			throw new ParametroInvalidoException(DIGITOS_CPF_INVALIDO);
+		}
+	}
+
+}

@@ -4,34 +4,7 @@
     background-color: #FFF;
 }
 
-#headerLogon{
-    width: 80%;
-    height: 50px;
-    margin-top: 30px;
-    padding-left: 25px;
-    padding-right: 20px;
-    border-bottom: 3px solid #79E3BD;
 
-    font: 600 24px Roboto, sans-serif;
-
-    color: #79E3BD;
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#logon{
-    width: 100px;
-    height: 30px;
-    color: red;
-    display: flex;
-    gap: 8px;
-}
-
-#logon:hover{
-    cursor: pointer;
-}
 
 #containerTable{
     width: 70%;
@@ -49,6 +22,7 @@
     display: flex;
     gap: 10px;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .headerTitle{
@@ -65,10 +39,11 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    justify-content: space-between;
 }
 
 .bodyItem{
-    width: 33%;
+    width: 200px;
     height: 100%;
     font: 400 17px Roboto, sans-serif;
     display: flex;
@@ -93,4 +68,16 @@
     border-radius: 100%;
     margin-right: 5px;
     margin-bottom: 2px;
+}
+
+#containerButton{
+    height: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#buttonNewProject{
+    width: 266px;
+    height: 100%;
 }

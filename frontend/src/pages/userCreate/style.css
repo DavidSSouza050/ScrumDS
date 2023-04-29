@@ -22,7 +22,10 @@
 
 #containerFormGroup{
     width: 100%;
-    height: 200px;
+    min-height: 315px;
+    height: auto;
+    overflow: hidden;
+
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -41,8 +44,8 @@
     margin-top: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap:30px;
 }
 
 #alinButton{

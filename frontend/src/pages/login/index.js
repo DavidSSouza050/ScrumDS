@@ -3,10 +3,10 @@ import './style.css';
 import letter from '../../assets/svg/latter.svg';
 
 import IconLogon from '../../assets/svg/IconLogon.svg'
-import SendButton from '../../components/buttonSend';
 import Checkbox from '../../components/checkbox/Index';
 import { Link } from 'react-router-dom';
-import InputIcon from '../../components/Input';
+import Input from '../../components/Input';
+import Button from '../../components/button';
 
 export default function Login(){
     
@@ -17,14 +17,14 @@ export default function Login(){
 
                 <img src={IconLogon} alt="Icone Scrum"/>
 
-                <InputIcon
+                <Input
                     nome="Usuário"
-                    placeholder="exemplo@hotmail.com"
+                    placeholder="___.___.___-__"
                     img={letter}
-                    type="E-mail"
+                    type="text"
                 />
                 
-                <InputIcon
+                <Input
                     nome="Senha"
                     placeholder="******"
                     img={letter}
@@ -37,7 +37,7 @@ export default function Login(){
                 />
 
                 <Link to="/project">
-                    <SendButton
+                    <Button
                         nome="Entrar"
                     />
                 </Link>

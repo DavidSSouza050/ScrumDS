@@ -3,9 +3,9 @@
 import './style.css';
 
 import Icon from "../../assets/svg/icon2.svg";
-import { Input } from '../../components/Input';
-import SendButton from '../../components/buttonSend';
+import Input from '../../components/Input';
 import { Link } from 'react-router-dom';
+import Button from '../../components/button';
 
 export default function UserCreate(){
     return(
@@ -39,7 +39,13 @@ export default function UserCreate(){
                             placeholder="********"
                             type="password"
                         />
+                         <Input
+                            nome="Cargo"
+                            placeholder="Desenvolvedor"
+                            type="text"
+                        />
                     </div>
+
                     <div className='formGroup'>
                         <Input
                             placeholder="__/__/__"
@@ -51,22 +57,30 @@ export default function UserCreate(){
                             placeholder="***********"
                             type="password"
                         />
+                        <Input
+                            nome="Squad"
+                            placeholder="Squad X"
+                            type="text"
+                        />  
                     </div>
-
                 </div>
+
+                
+                    
+                    
 
                 <div id="containerButton">
 
                     <div id="alinButton">
-                        <SendButton
+                        <Button
                             nome="Cadastrar"
                         />
                     </div>
-                    
+
                     <Link to='/'>
                         <span className='span'>Já possui uma conta?</span>
                     </Link>
-                    
+
 
                 </div>
 

@@ -2,9 +2,10 @@
 
 import './style.css';
 
-import exit from "../../assets/svg/exit.svg";
+import IconPerfil from "../../assets/svg/Iconperfil.svg";
 import information from "../../assets/svg/information.svg";
-import { Link } from 'react-router-dom';
+import Header from '../../components/hearder';
+import Button from '../../components/button'
 
 export default function Project(){
 
@@ -23,16 +24,11 @@ export default function Project(){
     return(
         <div classname='container'>
 
-            <div id="headerLogon" className='center'>
-                Projetos
-                
-                <Link to="/">
-                    <div id="logon">
-                        Sair
-                        <img src={exit} alt="Sair"/>
-                    </div>
-                </Link>
-            </div>
+            <Header
+                title= "Projetos"
+                icon= {IconPerfil}
+           />
+
 
             <div id="containerTable" className='center'>
                 <div id='headerTable'>
@@ -66,9 +62,17 @@ export default function Project(){
 
                 )}
 
+               
+
             </div>
 
-
+            <div id="containerButton">
+                <div id="buttonNewProject">
+                    <Button
+                        nome="Novo Projeto"
+                    />
+                </div>
+            </div>
 
         </div>
     )

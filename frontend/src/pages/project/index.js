@@ -32,13 +32,13 @@ export default function Project(){
 
             <div id="containerTable" className='center'>
                 <div id='headerTable'>
-                    <div className='headerTitle'>
+                    <div className='headerTitle' id='left'>
                         Nome
                     </div>
                     <div className='headerTitle'>
                         Status
                     </div>
-                    <div className='headerTitle'>
+                    <div className='headerTitle' id='right'>
                         
                     </div>
                 </div>
@@ -48,14 +48,14 @@ export default function Project(){
                 
 
                     <div id="bodyTable">
-                        <div className='bodyItem'>
+                        <div className='bodyItem' id='left'>
                             {projeto.nome}
                         </div>
                         <div className='bodyItem'>
                             <spam className="colorStatus"/>
                             {projeto.status}
                         </div>
-                        <div className='bodyItem'>
+                        <div className='bodyItem' id='right'>
                             <img src={information} alt='Informação' className='information'/>
                         </div>
                     </div>

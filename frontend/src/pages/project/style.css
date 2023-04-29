@@ -51,6 +51,16 @@
     justify-content: center;
 }
 
+#left{
+    text-align: left;
+    justify-content: left;
+}
+
+#right{
+    text-align: right;
+    justify-content: right;
+}
+
 .information{
     cursor: pointer;
     transition-duration: 0.2s; 

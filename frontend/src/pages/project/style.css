@@ -45,6 +45,7 @@
 .bodyItem{
     width: 200px;
     height: 100%;
+    padding-right: 5px;
     font: 400 17px Roboto, sans-serif;
     display: flex;
     align-items: flex-end;

@@ -46,6 +46,7 @@
     width: 200px;
     height: 100%;
     font: 400 17px Roboto, sans-serif;
+    margin-right: 3px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -80,7 +81,7 @@
     margin-bottom: 2px;
 }
 
-#containerButton{
+#containerButtonProject{
     height: 50px;
     margin-bottom: 50px;
     display: flex;

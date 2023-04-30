@@ -53,11 +53,13 @@ input[type="file"]{
 
 #containerFormGroup{
     width: 100%;
-    height: 270px;
+    min-height: 315px;
+    height: auto;
+    overflow: hidden;
+
     display: flex;
     flex-direction: row;
     gap: 20px;
-    margin-top: 30px;
 }
 
 .formGroup{
@@ -65,12 +67,12 @@ input[type="file"]{
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap:30px
 }
 
 
 #containerChangePassword{
     width: 100%;
+    margin-top: 40px;
     min-height: 200px;
     height: auto;
     overflow: hidden;
@@ -87,7 +89,7 @@ input[type="file"]{
     align-items: flex-end;
 }
 
-#containerButton{
+#containerButtonPerfil{
     width: 100%;
     height: 50px;
     margin-top: 30px;

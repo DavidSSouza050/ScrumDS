@@ -6,6 +6,7 @@ import IconPerfil from "../../assets/svg/Iconperfil.svg";
 import information from "../../assets/svg/information.svg";
 import Header from '../../components/hearder';
 import Button from '../../components/button'
+import { Link } from 'react-router-dom';
 
 export default function Project(){
 
@@ -66,11 +67,14 @@ export default function Project(){
 
             </div>
 
-            <div id="containerButton">
+            <div id="containerButtonProject">
+                
                 <div id="buttonNewProject">
-                    <Button
-                        nome="Novo Projeto"
-                    />
+                    <Link to="/projectCreate">
+                        <Button
+                            nome="Novo Projeto"
+                        />
+                    </Link>
                 </div>
             </div>
 

@@ -13,18 +13,25 @@ import Header from '../../components/hearder';
 import Button from '../../components/button'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import HeaderTable, { HeaderTableApproval } from '../../components/headerTable';
+import BodyTable, { BodyTableApproval } from '../../components/bodyTable';
+import Modal from '../../components/modal';
+import UserViewerComponent from '../../components/userViewerComponent';
+import ProjectViwerComponent from '../../components/projectViewerComponent';
 
 
 
-export default function Project(){
+export default function Project() {
     const [toggleState, setToggleState] = useState(1);
+    const [openModalUserView, setOpenModalUserView] = useState(false)
+    const [openModalProjectView, setOpenModalProjectView] = useState(false)
 
     const toggleTab = (index) => {
         setToggleState(index);
     };
 
 
-    const dataProject =[
+    const dataProject = [
         {
             "nome": "Padaria",
             "status": "Em andamento",
@@ -35,7 +42,7 @@ export default function Project(){
         }
     ];
 
-    const dataUsuarios =[
+    const dataUsuarios = [
         {
             "nome": "DAVID SILVA",
             "cargo": "P.O",
@@ -50,180 +57,148 @@ export default function Project(){
         }
     ];
 
-    return(
-            
-            <div classname='container'>
+    return (
 
-                <Header
-                    title= "Projetos"
-                    icon= {IconPerfil}
-                />
+        <div classname='container'>
 
-                <div id="containerTable" className='center'>
+            <Header
+                title="Projetos"
+                icon={IconPerfil}
+            />
 
-                    <div id="containerTabs">
-    
-                        <button 
-                            className={toggleState === 1 ? "tabs activeTabs" : "tabs"}
-                            onClick={()=> toggleTab(1)}
-                        >
-                            Projetos
-                        </button>
+            <div id="containerTable" className='center'>
 
-                        <button
-                            className={toggleState === 2 ? "tabs activeTabs" : "tabs"}
-                            onClick={()=> toggleTab(2)}
-                        >
-                            Usuarios
-                        </button>
+                <div id="containerTabs">
 
-                        <button 
-                            className={toggleState === 3 ? "tabs pendingUsersActive" : "tabPendingUsers"}
-                            onClick={()=> toggleTab(3)}
-                        >
-                            Usuarios Pendentes
-                        </button>
-                    </div>
-
-
-                    {/*Lista de projetos*/}
-
-                    <div 
-                        className={toggleState === 1 ? "content  activeContent" : "content"}
+                    <button
+                        className={toggleState === 1 ? "tabs activeTabs" : "tabs"}
+                        onClick={() => toggleTab(1)}
                     >
+                        Projetos
+                    </button>
 
-                        <div className='headerTable'>
-                            <div className='headerTitle left'>
-                                Nome
-                            </div>
-                            <div className='headerTitle'>
-                                Status
-                            </div>
-                            <div className='headerTitle right'>
-                                
-                            </div>
-                        </div>
-
-                        {dataProject.map((projeto)=>
-                        
-
-                            <div className="bodyTable">
-                                <div className='bodyItem left'>
-                                    {projeto.nome}
-                                </div>
-                                <div className='bodyItem'>
-                                    <spam className="colorStatus"/>
-                                    {projeto.status}
-                                </div>
-                                <div className='bodyItem right'>
-                                    <img src={information} alt='Informação' className='information'/>
-                                </div>
-                            </div>
-
-                        )}
-                        
-                    </div>
-
-
-                    {/*Lista de Lista de usuarios*/}
-                    
-                    <div 
-                        className={toggleState === 2 ? "content  activeContent" : "content"}
+                    <button
+                        className={toggleState === 2 ? "tabs activeTabs" : "tabs"}
+                        onClick={() => toggleTab(2)}
                     >
+                        Usuarios
+                    </button>
 
-                        <div className='headerTable'>
-                            <div className='headerTitle left'>
-                                Nome
-                            </div>
-                            <div className='headerTitle'>
-                                Cargo
-                            </div>
-                            <div className='headerTitle right'>
-                                
-                            </div>
-                        </div>
-
-                        {dataUsuarios.map((usuario)=>
-                        
-
-                            <div className="bodyTable">
-                                <div className='bodyItem left'>
-                                    {usuario.nome}
-                                </div>
-                                <div className='bodyItem'>
-                                    <spam className="colorStatus"/>
-                                    {usuario.cargo}
-                                </div>
-                                <div className='bodyItem right'>
-                                    <img src={information} alt='Informação' className='information'/>
-                                </div>
-                            </div>
-
-                        )}
-                        
-                    </div>
-
-
-                    {/*Lista de Lista de usuarios para aprovação*/}
-                    
-                    <div 
-                        className={toggleState === 3 ? "content  activeContent" : "content"}
+                    <button
+                        className={toggleState === 3 ? "tabs pendingUsersActive" : "tabPendingUsers"}
+                        onClick={() => toggleTab(3)}
                     >
-
-                        <div className='headerTable'>
-                            <div className='headerTitle left'>
-                                Nome
-                            </div>
-                            <div className='headerTitle'>
-                                Cargo
-                            </div>
-                            <div className='headerTitle'>
-                                Aprovação
-                            </div>
-                            <div className='headerTitle right'>
-                                
-                            </div>
-                        </div>
-
-                        {dataUsuarios.map((usuario)=>
-                        
-
-                            <div className="bodyTable">
-                                <div className='bodyItem left'>
-                                    {usuario.nome}
-                                </div>
-                                <div className='bodyItem'>
-                                    <spam className="colorStatus"/>
-                                    {usuario.cargo}
-                                </div>
-
-                                <div className='bodyItem'>
-                                    <img src={accept} className='approval' alt="Aprovar"/>
-                                    <img src={cancel} className='approval' alt="Cancelar"/>
-                                </div>
-
-                                <div className='bodyItem right'>
-                                    <img src={information} alt='Informação' className='information'/>
-                                </div>
-                            </div>
-
-                        )}
-                        
-                    </div>
+                        Usuarios Pendentes
+                    </button>
                 </div>
 
 
-                <div id="containerButtonProject">
-                    
-                    <div id="buttonNewProject">
-                        <Link to="/projectCreate">
-                            <Button
-                                nome="Novo Projeto"
-                            />
-                        </Link>
-                    </div>
+                {/*Lista de projetos*/}
+
+                <div
+                    className={toggleState === 1 ? "content  activeContent" : "content"}
+                >
+
+                    <HeaderTable
+                        title1="Nome"
+                        title2="Status"
+                    />
+
+                    {dataProject.map((projeto) =>
+
+                        <BodyTable
+                            nome={projeto.nome}
+                            status={projeto.status}
+                            information={information}
+                            event={() => setOpenModalProjectView(true)}
+                        />
+
+                    )}
+
                 </div>
 
+
+                {/*Lista de Lista de usuarios*/}
+
+                <div
+                    className={toggleState === 2 ? "content  activeContent" : "content"}
+                >
+
+                    <HeaderTable
+                        title1="Nome"
+                        title2="Cargo"
+                    />
+
+                    {dataUsuarios.map((usuario) =>
+
+                        <BodyTable
+                            nome={usuario.nome}
+                            status={usuario.cargo}
+                            information={information}
+                            event={() => setOpenModalUserView(true)}
+                        />
+
+                    )}
+
+                </div>
+
+
+                {/*Lista de Lista de usuarios para aprovação*/}
+
+                <div
+                    className={toggleState === 3 ? "content  activeContent" : "content"}
+                >
+
+                    <HeaderTableApproval
+                        title1="Nome"
+                        title2="Cargo"
+                        title3="Aprovação"
+                    />
+
+                    {dataUsuarios.map((usuario) =>
+
+                        <BodyTableApproval
+                            nome={usuario.nome}
+                            cargo={usuario.cargo}
+                            accept={accept}
+                            cancel={cancel}
+                            information={information}
+                            event={() => setOpenModalUserView(true)}
+                        />
+
+                    )}
+
+                </div>
             </div>
+
+
+
+            <Modal 
+                isOpen={openModalUserView} 
+                setModalOpen={() => setOpenModalUserView(!openModalUserView)}
+            >
+                <UserViewerComponent/>
+            </Modal>
+
+            <Modal 
+                isOpen={openModalProjectView} 
+                setModalOpen={() => setOpenModalProjectView(!openModalProjectView)}
+            >
+                <ProjectViwerComponent/>
+            </Modal>
+
+            
+            
+            <div id="containerButtonProject">
+                <div id="buttonNewProject">
+                    <Link to="/projectCreate">
+                        <Button
+                            nome="Novo Projeto"
+                        />
+                    </Link>
+                </div>
+            </div>
+
+        </div>
     )
 }

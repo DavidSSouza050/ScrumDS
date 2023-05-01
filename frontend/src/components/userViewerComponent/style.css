@@ -1,0 +1,23 @@
+#containerUserViewComponent{
+    width: 100%;
+    height: 200px;
+}
+
+
+#containerFormGroupUserViewComponent{
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.formGroupUserViewComponent{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}

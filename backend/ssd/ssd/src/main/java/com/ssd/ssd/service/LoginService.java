@@ -50,7 +50,6 @@ public class LoginService {
 		return loginEntity.getToken();
 	}
 
-
 	private LoginUsuarioEntity registrarLoginUsuario(UsuarioEntity usuario) {
 		
 		return LoginUsuarioEntity.builder()
@@ -63,7 +62,7 @@ public class LoginService {
 	private void validarStatusParaLogar(UsuarioEntity usuario) {
 
 		if (!Objects.equals(usuario.getStatus().toString(), StatusEnum.ATIVO.toString())) {
-			throw new MsgException("Login não permitido para usuário com status cadastro pendente");
+			throw new MsgException("Login não permitido para usuário com status do cadastro pendente");
 		}
 	}
 

@@ -10,13 +10,17 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.ssd.ssd.entity.LoginUsuarioEntity;
 import com.ssd.ssd.entity.UsuarioEntity;
 import com.ssd.ssd.entity.factory.UsuarioEntityFactory;
+import com.ssd.ssd.enumerator.PerfilEnum;
 import com.ssd.ssd.enumerator.StatusEnum;
 import com.ssd.ssd.exception.DadosJaCadastradosException;
 import com.ssd.ssd.exception.MsgException;
+import com.ssd.ssd.exception.NaoAutorizadoException;
 import com.ssd.ssd.exception.NaoEncontradoException;
 import com.ssd.ssd.exception.ParametroInvalidoException;
+import com.ssd.ssd.repository.LoginUsuarioRepository;
 import com.ssd.ssd.repository.UsuarioRepository;
 import com.ssd.ssd.vo.UsuarioVO;
 import com.ssd.ssd.vo.factory.UsuarioVOFactory;
@@ -27,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioService {
 	
+	private final LoginUsuarioRepository usuarioLoginRepository;
 	private final UsuarioRepository usuarioRepository;
 	
 	private static final String EMAIL_JA_CADASTRADO = " Já existe usuario cadastrado com esse email ";
@@ -34,6 +39,7 @@ public class UsuarioService {
 	private static final String SENHA_INVALIDO = " Senha inválida ";
 	private static final String DIGITOS_CPF_INVALIDO = " Dígitos CPF inválidos";
 //	private static final String EMAIL_INVALIDO = " Digite um email válido ";
+	private static final String USUARIO_NAO_AUTORIZADO = "Usuário não autorização para esta requesição";
 	
 	@Transactional
 	public UsuarioVO cadastrar(UsuarioVO usuario) {
@@ -55,6 +61,9 @@ public class UsuarioService {
 		}
 		
 		UsuarioEntity usuarioEntity = UsuarioEntityFactory.converterParaEntity(usuario);
+		
+		System.out.println(usuarioEntity.toString());
+		
 		usuarioRepository.save(usuarioEntity);
 
 		return UsuarioVOFactory.converterParaVO(usuarioEntity);
@@ -87,8 +96,13 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
 	}
 	
-	public UsuarioVO recuperarPorCpf(String cpf) {
+	public UsuarioVO recuperarPorCpf(String cpf, String token) {
 
+		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
+		
+		if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
+			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
+		}
 		validarCpf(cpf);
 
 		UsuarioEntity usuarioByCpf = usuarioRepository.findByCpf(cpf)
@@ -98,8 +112,14 @@ public class UsuarioService {
 	}
 	
 	@Transactional
-	public UsuarioVO ativarCadastro(Long idUsuario) {
+	public UsuarioVO ativarCadastro(String token, Long idUsuario) {
 
+		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
+		
+		if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
+			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
+		}
+		
 		UsuarioEntity usuarioBanco = recuperarUsuario(idUsuario);
 
 		usuarioBanco.setStatus(StatusEnum.ATIVO);
@@ -109,8 +129,14 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
 	}
 	
-	public List<UsuarioVO> listaUsuarios() {
-
+	public List<UsuarioVO> listaUsuarios(String token) {
+		
+		LoginUsuarioEntity usuariosLogado = recuperarUsuarioLogadoPorToken(token);
+		
+		if(!usuariosLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
+			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
+		}
+		
 		StatusEnum pendente = StatusEnum.PENDENTE;
 		List<UsuarioEntity> usuarios = usuarioRepository.findByStatusPendentes(pendente);
 
@@ -121,6 +147,12 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaList(usuarios);
 	}
 	
+	private LoginUsuarioEntity recuperarUsuarioLogadoPorToken(String token) {
+		
+		return usuarioLoginRepository.findByLogadoToken(token)
+				.orElseThrow(()-> new NaoEncontradoException("Usuário não encontrado"));
+	}
+
 	private void validarSenhaConfirmada(String senha, String senhaConfirmada) {
 
 		if (!Objects.equals(senha, senhaConfirmada)) {

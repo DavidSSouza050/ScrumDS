@@ -22,12 +22,5 @@ public interface UsuarioRepository  extends JpaRepository<UsuarioEntity, Long>{
 //			+" join usuario.status situacao "
 			+" WHERE status = :pendente ")
 	List<UsuarioEntity> findByStatusPendentes(@Param("pendente") StatusEnum pendente);
-	
-	/*@Query("SELECT cursoSolicitacao FROM CursoSolicitacaoEntity cursoSolicitacao"
-			+ " join cursoSolicitacao.curso curso1"
-			+ " WHERE curso1.id = :idCurso  AND cursoSolicitacao.situacao = :pendente")
-	List<CursoSolicitacaoEntity> findSolicitacoesPendentes(@Param("idCurso") Long idCurso, 
-			StatusSolicitacaoCursoEnum pendente);*/
-
 
 }

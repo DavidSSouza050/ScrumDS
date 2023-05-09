@@ -5,6 +5,7 @@ import Login from './pages/login';
 import Project from './pages/project';
 import UserCreate from './pages/userCreate';
 import Perfil from './pages/perfil';
+import Kanban from './pages/kanban';
 import ProjectCreate from './pages/projectCreate';
 import UserView from './pages/userView';
 
@@ -18,6 +19,7 @@ function App() {
           <Route path= '/perfil' element={<Perfil/>} />
           <Route path= '/projectCreate' element={<ProjectCreate/>} />
           <Route path= '/userView' element={<UserView/>} />
+          <Route path= '/project/kanban' element={<Kanban/>} />
         </Routes>  
       </BRouter>
   );

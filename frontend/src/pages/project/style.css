@@ -14,75 +14,9 @@
     margin-top: 70px;
 }
 
-
-#headerTable{
-    width: 100%;
+#containerButtonProject{
     height: 50px;
-
-    display: flex;
-    gap: 10px;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.headerTitle{
-    width: 33%;
-    height: 100%;
-    font: 600 20px Roboto, sans-serif;
-    text-align: center;
-}
-
-#bodyTable{
-    width: 100%;
-    height: 80px;
-    border-bottom: 3px solid #56BB97;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: space-between;
-}
-
-.bodyItem{
-    width: 200px;
-    height: 100%;
-    padding-right: 5px;
-    font: 400 17px Roboto, sans-serif;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-#left{
-    text-align: left;
-    justify-content: left;
-}
-
-#right{
-    text-align: right;
-    justify-content: right;
-}
-
-.information{
-    cursor: pointer;
-    transition-duration: 0.2s; 
-}
-
-.information:hover{
-    transform:  scale(1.1);
-    transition-duration: 0.2s; 
-}
-
-.colorStatus{
-    width: 15px;
-    height: 15px;
-    background-color: #81D8F7;
-    border-radius: 100%;
-    margin-right: 5px;
-    margin-bottom: 2px;
-}
-
-#containerButton{
-    height: 50px;
+    margin-top: 30px;
     margin-bottom: 50px;
     display: flex;
     justify-content: center;
@@ -91,4 +25,56 @@
 #buttonNewProject{
     width: 266px;
     height: 100%;
+}
+
+/*Tabs*/
+
+
+#containerTabs{
+    width: 100%;
+    height: 30px;
+    margin-bottom: 50px;
+}
+
+.tabs{
+    width: 170px;
+    height: 30px;
+    margin-right: 10px;
+    background-color: #FFF;
+    outline: none;
+    border-bottom: 2px solid #56BB97;
+}
+
+.activeTabs{
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 4px solid #56BB97;
+}
+
+.tabPendingUsers{
+    width: 170px;
+    height: 30px;
+    margin-right: 10px;
+    background-color: #FFF;
+    outline: none;
+    border-bottom: 2px solid #FFAE35;
+}
+
+.pendingUsersActive{
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 4px solid #FFAE35;
+}
+
+
+button{
+    border:none
+}
+
+.content{
+    display: none;
+}
+
+.activeContent{
+    display: block;
 }

@@ -93,7 +93,7 @@ export default function Perfil(){
                             type="text"
                         />
 
-                        <div id="containerButton">
+                        <div id="containerButtonPerfil">
                             <div className='itemButton'>
                                 <Button
                                     nome="Salvar"

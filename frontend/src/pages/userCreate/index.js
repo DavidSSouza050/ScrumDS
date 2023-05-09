@@ -9,6 +9,7 @@ import Button from '../../components/button';
 
 export default function UserCreate(){
     return(
+
         <div id="container">
             <div id="containerLogo">
                 <img src={Icon} alt='Logo'/>
@@ -65,24 +66,21 @@ export default function UserCreate(){
                     </div>
                 </div>
 
-                
-                    
-                    
+            </div>
+            
 
-                <div id="containerButton">
+            <div id="containerButtonCreateUser">
 
-                    <div id="alinButton">
-                        <Button
-                            nome="Cadastrar"
-                        />
-                    </div>
-
-                    <Link to='/'>
-                        <span className='span'>Já possui uma conta?</span>
-                    </Link>
-
-
+                <div id="alinButton">
+                    <Button
+                        nome="Cadastrar"
+                    />
                 </div>
+
+                <Link to='/'>
+                    <span className='span'>Já possui uma conta?</span>
+                </Link>
+
 
             </div>
 

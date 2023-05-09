@@ -1,0 +1,41 @@
+#containerUserViewFull{
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+}
+
+#containerUserView{
+    width: 40%;
+    height: 200px;
+    margin-top: 100px;
+}
+
+
+#containerFormGroup{
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.formGroup{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#conatinerButtonUserView{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#buttonUserView{
+    width: 400px;
+}

@@ -1,4 +1,6 @@
 
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import './style.css';
 
@@ -11,8 +13,6 @@ import cancel from "../../assets/svg/cancel.svg"
 /*Componentes */
 import Header from '../../components/hearder';
 import Button from '../../components/button'
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import HeaderTable, { HeaderTableApproval } from '../../components/headerTable';
 import BodyTable, { BodyTableApproval } from '../../components/bodyTable';
 import Modal from '../../components/modal';

@@ -10,7 +10,7 @@ import Button from '../../components/button';
 export default function UserCreate(){
     return(
 
-        <div id="container">
+        <div id="containerCreate">
             <div id="containerLogo">
                 <img src={Icon} alt='Logo'/>
             </div>

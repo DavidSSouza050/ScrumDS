@@ -12,7 +12,7 @@ import uploadImage from '../../assets/svg/uploadImage.svg'
 export default function Perfil(){
     return(
 
-        <div className='container'>
+        <div className='containerPerfil'>
             
             <HeaderBack
                 title="Perfil do Usuário"

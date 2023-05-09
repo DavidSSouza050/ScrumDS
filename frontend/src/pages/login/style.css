@@ -1,20 +1,19 @@
-.container{
+.containerLogin{
     height: 100vh;
     width: 100vw;
     position: absolute;
+    display: flex;
 }
 
 #containerLogon{
     width: 400px;
     min-height: 500px;
     height: auto;
-    overflow: hidden;
-
     margin: auto;
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
-    
     gap: 10px;
 }
 

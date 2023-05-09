@@ -59,7 +59,7 @@ export default function Project() {
 
     return (
 
-        <div classname='container'>
+        <div classname='containerProject'>
 
             <Header
                 title="Projetos"

@@ -90,7 +90,7 @@ export default function Kanban(){
             title= "Nome do projeto"
             icon={Back}
         />
-        <div className='container'>
+        <div className='containerKanban'>
             <DragDropContext onDragEnd={onDragEnd}>
             {columns.map((column) => (
                 <div className='dragDropContext'>

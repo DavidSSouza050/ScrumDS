@@ -11,7 +11,7 @@ import Button from '../../components/button';
 export default function Login(){
     
     return(
-        <div className='container' style={{backgroundColor: '#39574C'}}>
+        <div className='containerLogin' style={{backgroundColor: '#39574C'}}>
 
             <div id='containerLogon'>
 

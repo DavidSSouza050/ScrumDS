@@ -62,8 +62,6 @@ public class UsuarioService {
 		
 		UsuarioEntity usuarioEntity = UsuarioEntityFactory.converterParaEntity(usuario);
 		
-		System.out.println(usuarioEntity.toString());
-		
 		usuarioRepository.save(usuarioEntity);
 
 		return UsuarioVOFactory.converterParaVO(usuarioEntity);

@@ -62,4 +62,9 @@ public class UsuarioController {
 		return usuarioService.listaUsuarios(token);
 	}
 	
+	@GetMapping("/token")
+	public UsuarioVO recuperarPorToken(@RequestHeader(value = "Authorization") String token) {
+		return usuarioService.recuperarPorToken(token);
+	}
+	
 }

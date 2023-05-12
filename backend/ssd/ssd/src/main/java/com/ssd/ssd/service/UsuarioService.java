@@ -185,4 +185,16 @@ public class UsuarioService {
 		}
 	}
 
+	public UsuarioVO recuperarPorToken(String token) {
+		
+		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
+		
+		return UsuarioVO.builder()
+				.id(usuarioLogado.getUsuario().getId())
+				.email(usuarioLogado.getUsuario().getEmail())
+				.perfil(usuarioLogado.getUsuario().getPerfil())
+				.status(usuarioLogado.getUsuario().getStatus())
+				.build();
+	}
+
 }

@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "TB_SSD_USUARIO")
 public class UsuarioEntity implements Serializable{
 
-	private static final long serialVersionUID = -3718611322080399965L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

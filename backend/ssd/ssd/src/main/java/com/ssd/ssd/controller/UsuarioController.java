@@ -48,9 +48,8 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/cpf")
-	public UsuarioVO recuperarPorCpf(@RequestHeader(value = "Authorization") String token,
-			@RequestParam String cpf) {
-		return usuarioService.recuperarPorCpf(cpf, token);
+	public UsuarioVO recuperarPorCpf(@RequestParam String cpf) {
+		return usuarioService.recuperarPorCpf(cpf);
 	}
 	
 	/*@GetMapping()
@@ -58,7 +57,7 @@ public class UsuarioController {
 		return usuarioService.listaUsuarios(token);
 	}*/
 	
-	@GetMapping("/")
+	@GetMapping("/token")
 	public UsuarioVO recuperarPorToken(@RequestParam String token) {
 		return usuarioService.recuperarPorToken(token);
 	}

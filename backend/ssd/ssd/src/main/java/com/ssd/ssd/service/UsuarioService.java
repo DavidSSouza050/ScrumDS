@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import com.ssd.ssd.entity.LoginUsuarioEntity;
 import com.ssd.ssd.entity.UsuarioEntity;
 import com.ssd.ssd.entity.factory.UsuarioEntityFactory;
-import com.ssd.ssd.enumerator.PerfilEnum;
 import com.ssd.ssd.exception.DadosJaCadastradosException;
 import com.ssd.ssd.exception.MsgException;
-import com.ssd.ssd.exception.NaoAutorizadoException;
 import com.ssd.ssd.exception.NaoEncontradoException;
 import com.ssd.ssd.exception.ParametroInvalidoException;
 import com.ssd.ssd.repository.LoginUsuarioRepository;
@@ -92,13 +90,13 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
 	}*/
 	
-	public UsuarioVO recuperarPorCpf(String cpf, String token) {
+	public UsuarioVO recuperarPorCpf(String cpf) {
 
-		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
-		
-		if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
-			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
-		}
+//		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
+//		
+//		if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
+//			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
+//		}
 		validarCpf(cpf);
 
 		UsuarioEntity usuarioByCpf = usuarioRepository.findByCpf(cpf)

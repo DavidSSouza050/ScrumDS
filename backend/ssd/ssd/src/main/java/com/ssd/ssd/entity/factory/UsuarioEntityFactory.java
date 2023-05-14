@@ -23,7 +23,7 @@ public class UsuarioEntityFactory {
 					.perfil(usuario.getPerfil())
 					.senha(Encrypt.getHash(usuario.getSenha()))
 					.senhaConfirmada(Encrypt.getHash(usuario.getSenhaConfirmada()))
-					.status(StatusEnum.PENDENTE)
+					.status(StatusEnum.ATIVO)
 					.build();
 		}
 		else 

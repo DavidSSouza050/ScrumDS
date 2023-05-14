@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.ssd.ssd.entity.LoginUsuarioEntity;
 import com.ssd.ssd.entity.UsuarioEntity;
-import com.ssd.ssd.enumerator.StatusEnum;
-import com.ssd.ssd.exception.MsgException;
 import com.ssd.ssd.exception.NaoAutorizadoException;
 import com.ssd.ssd.exception.NaoEncontradoException;
 import com.ssd.ssd.repository.LoginUsuarioRepository;
@@ -61,9 +59,9 @@ public class LoginService {
 	
 	private void validarStatusParaLogar(UsuarioEntity usuario) {
 
-		if (!Objects.equals(usuario.getStatus().toString(), StatusEnum.ATIVO.toString())) {
+		/*if (!Objects.equals(usuario.getStatus().toString(), StatusEnum.ATIVO.toString())) {
 			throw new MsgException("Login não permitido para usuário com status do cadastro pendente");
-		}
+		}*/
 	}
 
 }

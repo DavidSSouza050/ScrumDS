@@ -35,7 +35,7 @@ public class UsuarioService {
 	private static final String SENHA_INVALIDO = " Senha inválida ";
 	private static final String DIGITOS_CPF_INVALIDO = " Dígitos CPF inválidos";
 //	private static final String EMAIL_INVALIDO = " Digite um email válido ";
-	private static final String USUARIO_NAO_AUTORIZADO = "Usuário não autorização para esta requesição";
+//	private static final String USUARIO_NAO_AUTORIZADO = "Usuário não autorização para esta requesição";
 	
 	@Transactional
 	public UsuarioVO cadastrar(UsuarioVO usuario) {

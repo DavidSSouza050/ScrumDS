@@ -9,7 +9,7 @@ import com.ssd.ssd.entity.LoginUsuarioEntity;
 
 public interface LoginUsuarioRepository  extends JpaRepository<LoginUsuarioEntity, Long>{
 
-	@Query("SELECT usuario FROM LoginUsuarioEntity usuarioLogado "
+	@Query("SELECT usuarioLogado FROM LoginUsuarioEntity usuarioLogado "
 			+" join usuarioLogado.usuario usuario"
 			+" WHERE usuarioLogado.token = :token")
 	Optional<LoginUsuarioEntity> findByLogadoToken(String token);

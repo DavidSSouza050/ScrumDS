@@ -1,6 +1,5 @@
 package com.ssd.ssd.service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -14,7 +13,6 @@ import com.ssd.ssd.entity.LoginUsuarioEntity;
 import com.ssd.ssd.entity.UsuarioEntity;
 import com.ssd.ssd.entity.factory.UsuarioEntityFactory;
 import com.ssd.ssd.enumerator.PerfilEnum;
-import com.ssd.ssd.enumerator.StatusEnum;
 import com.ssd.ssd.exception.DadosJaCadastradosException;
 import com.ssd.ssd.exception.MsgException;
 import com.ssd.ssd.exception.NaoAutorizadoException;
@@ -80,7 +78,7 @@ public class UsuarioService {
 				.orElseThrow(() -> new NaoEncontradoException("Usuario não encontrado " + id));
 	}
 	
-	@Transactional
+	/*@Transactional
 	public UsuarioVO alterar(UsuarioVO usuario) {
 		
 		validarCpf(usuario.getCpf());
@@ -92,7 +90,7 @@ public class UsuarioService {
 		usuarioRepository.save(usuarioBanco);
 
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
-	}
+	}*/
 	
 	public UsuarioVO recuperarPorCpf(String cpf, String token) {
 
@@ -109,7 +107,7 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaVO(usuarioByCpf);
 	}
 	
-	@Transactional
+	/*@Transactional
 	public UsuarioVO ativarCadastro(String token, Long idUsuario) {
 
 		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
@@ -125,9 +123,9 @@ public class UsuarioService {
 		usuarioRepository.save(usuarioBanco);
 
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
-	}
+	}*/
 	
-	public List<UsuarioVO> listaUsuarios(String token) {
+	/*public List<UsuarioVO> listaUsuarios(String token) {
 		
 		LoginUsuarioEntity usuariosLogado = recuperarUsuarioLogadoPorToken(token);
 		
@@ -143,7 +141,7 @@ public class UsuarioService {
 		}
 
 		return UsuarioVOFactory.converterParaList(usuarios);
-	}
+	}*/
 	
 	private LoginUsuarioEntity recuperarUsuarioLogadoPorToken(String token) {
 		

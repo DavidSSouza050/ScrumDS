@@ -58,7 +58,7 @@ public class UsuarioController {
 		return usuarioService.listaUsuarios(token);
 	}*/
 	
-	@GetMapping("/")
+	@GetMapping("/token")
 	public UsuarioVO recuperarPorToken(@RequestParam String token) {
 		return usuarioService.recuperarPorToken(token);
 	}

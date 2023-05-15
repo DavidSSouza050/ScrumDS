@@ -6,6 +6,7 @@ import Icon from "../../assets/svg/icon2.svg";
 import Input from '../../components/Input';
 import { Link } from 'react-router-dom';
 import Button from '../../components/button';
+import Select from '../../components/select';
 
 export default function UserCreate(){
     return(
@@ -40,11 +41,12 @@ export default function UserCreate(){
                             placeholder="********"
                             type="password"
                         />
-                         <Input
+
+
+                        <Select 
                             nome="Cargo"
-                            placeholder="Desenvolvedor"
-                            type="text"
                         />
+    
                     </div>
 
                     <div className='formGroup'>
@@ -58,11 +60,6 @@ export default function UserCreate(){
                             placeholder="***********"
                             type="password"
                         />
-                        <Input
-                            nome="Squad"
-                            placeholder="Squad X"
-                            type="text"
-                        />  
                     </div>
                 </div>
 
@@ -80,8 +77,7 @@ export default function UserCreate(){
                 <Link to='/'>
                     <span className='span'>Já possui uma conta?</span>
                 </Link>
-
-
+                
             </div>
 
         </div>

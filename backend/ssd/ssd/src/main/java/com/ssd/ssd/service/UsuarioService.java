@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import com.ssd.ssd.entity.LoginUsuarioEntity;
 import com.ssd.ssd.entity.UsuarioEntity;
 import com.ssd.ssd.entity.factory.UsuarioEntityFactory;
-import com.ssd.ssd.enumerator.PerfilEnum;
 import com.ssd.ssd.exception.DadosJaCadastradosException;
 import com.ssd.ssd.exception.MsgException;
-import com.ssd.ssd.exception.NaoAutorizadoException;
 import com.ssd.ssd.exception.NaoEncontradoException;
 import com.ssd.ssd.exception.ParametroInvalidoException;
 import com.ssd.ssd.repository.LoginUsuarioRepository;
@@ -37,7 +35,7 @@ public class UsuarioService {
 	private static final String SENHA_INVALIDO = " Senha inválida ";
 	private static final String DIGITOS_CPF_INVALIDO = " Dígitos CPF inválidos";
 //	private static final String EMAIL_INVALIDO = " Digite um email válido ";
-	private static final String USUARIO_NAO_AUTORIZADO = "Usuário não autorização para esta requesição";
+//	private static final String USUARIO_NAO_AUTORIZADO = "Usuário não autorização para esta requesição";
 	
 	@Transactional
 	public UsuarioVO cadastrar(UsuarioVO usuario) {
@@ -92,13 +90,13 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
 	}*/
 	
-	public UsuarioVO recuperarPorCpf(String cpf, String token) {
+	public UsuarioVO recuperarPorCpf(String cpf) {
 
-		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
-		
-		if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
-			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
-		}
+//		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
+//		
+//		if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
+//			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
+//		}
 		validarCpf(cpf);
 
 		UsuarioEntity usuarioByCpf = usuarioRepository.findByCpf(cpf)

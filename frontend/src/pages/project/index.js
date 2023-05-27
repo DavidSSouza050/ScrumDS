@@ -1,34 +1,92 @@
 
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import './style.css';
 
 /*Icones */
 import IconPerfil from "../../assets/svg/Iconperfil.svg";
-import information from "../../assets/svg/information.svg";
-import accept from "../../assets/svg/accept.svg"
-import cancel from "../../assets/svg/cancel.svg"
+
 
 /*Componentes */
 import Header from '../../components/hearder';
 import Button from '../../components/button'
-import HeaderTable, { HeaderTableApproval } from '../../components/headerTable';
-import BodyTable, { BodyTableApproval } from '../../components/bodyTable';
+import HeaderTable from '../../components/headerTable';
+import BodyTable from '../../components/bodyTable';
 import Modal from '../../components/modal';
 import UserViewerComponent from '../../components/userViewerComponent';
 import ProjectViwerComponent from '../../components/projectViewerComponent';
+import axios from 'axios';
 
 
 
 export default function Project() {
+    const [id, setId] = useState('');
+    const [perfil, setPerfil] = useState('');
     const [toggleState, setToggleState] = useState(1);
+    const [dataUsuarios, setDataUsuarios] = useState([])
     const [openModalUserView, setOpenModalUserView] = useState(false)
     const [openModalProjectView, setOpenModalProjectView] = useState(false)
 
     const toggleTab = (index) => {
         setToggleState(index);
     };
+
+  //*Pegando o token do usuario */
+  const token = localStorage.getItem('token');
+  
+  //fazendo a requisição do usuario ao abrir a pagina
+    useEffect(() => {
+        const getUser = async () => {
+          try {
+                const response = await axios.get(`http://localhost:8080/sistemas-solucoes-digitais/usuarios/token/${token}`);
+                console.log('caiu aqui');
+                setPerfil(response.data.perfil);
+                listarUsuarios(perfil);
+                
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        
+        getUser();
+        
+    }, []);
+
+
+    const listarUsuarios = (perfil) => {
+        if(perfil !== 'DEVELOPER'){
+            axios.get(`http://localhost:8080/sistemas-solucoes-digitais/usuarios/listar/${token}`, {})
+            .then(function (response) {
+                setDataUsuarios(response.data);
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        }
+    }
+
+
+    // formatando perfil do usuario
+    const cargoUsuario = (perfil) => {
+
+        if(perfil === "PRODUCT_OWNER"){
+            return 'P.O'
+        }else if(perfil === "SCRUM_MASTER"){
+            return 'S.M'            
+        }else{
+            return 'T.D'            
+        }
+
+    }
+
+    //Abrindo Modal com os dados do usuario
+    const userSelected = (id) =>{
+        setId(id)
+        setOpenModalUserView(true)
+    }
+
+
 
 
     const dataProject = [
@@ -39,21 +97,6 @@ export default function Project() {
         {
             "nome": "Mercearia",
             "status": "Cancelado",
-        }
-    ];
-
-    const dataUsuarios = [
-        {
-            "nome": "DAVID SILVA",
-            "cargo": "P.O",
-        },
-        {
-            "nome": "ENDREW CAVALCANTE",
-            "cargo": "S.M",
-        },
-        {
-            "nome": "JEREMIAS JOAO MANE",
-            "cargo": "T.D",
         }
     ];
 
@@ -76,20 +119,18 @@ export default function Project() {
                     >
                         Projetos
                     </button>
-
-                    <button
-                        className={toggleState === 2 ? "tabs activeTabs" : "tabs"}
-                        onClick={() => toggleTab(2)}
-                    >
-                        Usuarios
-                    </button>
-
-                    <button
-                        className={toggleState === 3 ? "tabs pendingUsersActive" : "tabPendingUsers"}
-                        onClick={() => toggleTab(3)}
-                    >
-                        Usuarios Pendentes
-                    </button>
+                    
+                    { 
+                        perfil !== 'DEVELOPER' ?
+                            <button
+                            className={toggleState === 2 ? "tabs activeTabs" : "tabs"}
+                            onClick={() => toggleTab(2)}
+                            >
+                                Usuarios
+                            </button> 
+                        : null
+                    }
+                    
                 </div>
 
 
@@ -109,11 +150,20 @@ export default function Project() {
                         <BodyTable
                             nome={projeto.nome}
                             status={projeto.status}
-                            information={information}
                             event={() => setOpenModalProjectView(true)}
                         />
 
                     )}
+            
+                    <div id="containerButtonProject">
+                        <div id="buttonNewProject">
+                            <Link to="/projectCreate">
+                                <Button
+                                    nome="Novo Projeto"
+                                />
+                            </Link>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -130,45 +180,17 @@ export default function Project() {
                     />
 
                     {dataUsuarios.map((usuario) =>
-
+                        
                         <BodyTable
-                            nome={usuario.nome}
-                            status={usuario.cargo}
-                            information={information}
-                            event={() => setOpenModalUserView(true)}
+                            nome={usuario.nomeCompleto}
+                            status={cargoUsuario(usuario.perfil)}
+                            event={() => userSelected(usuario.id)}
                         />
 
                     )}
 
                 </div>
 
-
-                {/*Lista de Lista de usuarios para aprovação*/}
-
-                <div
-                    className={toggleState === 3 ? "content  activeContent" : "content"}
-                >
-
-                    <HeaderTableApproval
-                        title1="Nome"
-                        title2="Cargo"
-                        title3="Aprovação"
-                    />
-
-                    {dataUsuarios.map((usuario) =>
-
-                        <BodyTableApproval
-                            nome={usuario.nome}
-                            cargo={usuario.cargo}
-                            accept={accept}
-                            cancel={cancel}
-                            information={information}
-                            event={() => setOpenModalUserView(true)}
-                        />
-
-                    )}
-
-                </div>
             </div>
 
 
@@ -177,7 +199,9 @@ export default function Project() {
                 isOpen={openModalUserView} 
                 setModalOpen={() => setOpenModalUserView(!openModalUserView)}
             >
-                <UserViewerComponent/>
+                <UserViewerComponent
+                    id={id}
+                />
             </Modal>
 
             <Modal 
@@ -187,17 +211,6 @@ export default function Project() {
                 <ProjectViwerComponent/>
             </Modal>
 
-            
-            
-            <div id="containerButtonProject">
-                <div id="buttonNewProject">
-                    <Link to="/projectCreate">
-                        <Button
-                            nome="Novo Projeto"
-                        />
-                    </Link>
-                </div>
-            </div>
 
         </div>
     )

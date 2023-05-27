@@ -1,7 +1,16 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
 
 export default function Header(props){
+
+    // redirecionamento
+    const navigate = useNavigate();
+
+    const closeSistem = () => {
+        localStorage.removeItem('token')
+        navigate('/');
+    }
+
     return(
 
         <div id="header" className='center'>
@@ -18,11 +27,10 @@ export default function Header(props){
                         </div>
                     </Link>
 
-                    <Link to='/'>
-                        <div className='item'>
-                            Logon
-                        </div>
-                    </Link>
+                    <div className='item' onClick={closeSistem}>
+                        Logon
+                    </div>
+
                 </div>
             </div>
          </div>

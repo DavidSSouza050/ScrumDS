@@ -11,7 +11,8 @@ import lombok.RequiredArgsConstructor;
 public class ProjetoService {
 	
 	public ProjetoVO cadastrar(ProjetoVO projeto) {
-		return null;
+		projeto.getClass();
+		return ProjetoVO.builder().build();
 	}
 
 }

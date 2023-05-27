@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "TB_SSD_LOGIN_USUARIO")
 public class LoginUsuarioEntity implements Serializable{
 
-	private static final long serialVersionUID = -3718611322080399965L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class LoginUsuarioEntity implements Serializable{
 	private String token;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_USUARIO", nullable=false)
+	@JoinColumn(name = "ID_USUARIO", referencedColumnName = "IDENT", nullable=false)
 	private UsuarioEntity usuario;
 	
 

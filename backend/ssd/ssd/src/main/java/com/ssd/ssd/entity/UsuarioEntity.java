@@ -56,11 +56,11 @@ public class UsuarioEntity implements Serializable{
 	@Column(name = "DATA_ATUALIZ_CADASTRO", nullable = false)
 	private LocalDateTime dataCadastro;
 
-	@Column(name = "PERFIL_USUARIO")
+	@Column(name = "PERFIL_USUARIO", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PerfilEnum perfil;
 	
-	@Column(name = "STATUS_USUARIO")
+	@Column(name = "STATUS_USUARIO", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusEnum status;
 	

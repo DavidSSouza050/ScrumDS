@@ -1,5 +1,7 @@
 package com.ssd.ssd.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,15 +51,14 @@ public class UsuarioController {
 		return usuarioService.alterar(usuario);
 	}
 	
+	@GetMapping("/listar/{token}")
+	public List<UsuarioVO> listarUsuarios(@PathVariable String token) {
+		return usuarioService.listarUsuarios(token);
+	}
+	
 	/*@PutMapping("/ativar/{idUsuario}")
 	public UsuarioVO ativarUsuario (@RequestHeader(value = "Authorization") String token,
 			@PathVariable Long idUsuario) {
 		return usuarioService.ativarCadastro(token, idUsuario);
 	}*/
-	
-	/*@GetMapping()
-	public List<UsuarioVO> listarUsuarios(@RequestHeader(value = "Authorization") String token) {
-		return usuarioService.listaUsuarios(token);
-	}*/
-	
 }

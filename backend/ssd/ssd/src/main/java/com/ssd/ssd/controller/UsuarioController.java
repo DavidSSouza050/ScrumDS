@@ -61,5 +61,4 @@ public class UsuarioController {
 			@PathVariable Long idUsuario) {
 		return usuarioService.ativarCadastro(token, idUsuario);
 	}*/
-	
 }

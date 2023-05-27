@@ -76,7 +76,7 @@ public class UsuarioService {
 				.orElseThrow(() -> new NaoEncontradoException("Usuario não encontrado " + id));
 	}
 	
-	/*@Transactional
+	@Transactional
 	public UsuarioVO alterar(UsuarioVO usuario) {
 		
 		validarCpf(usuario.getCpf());
@@ -88,7 +88,7 @@ public class UsuarioService {
 		usuarioRepository.save(usuarioBanco);
 
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
-	}*/
+	}
 	
 	public UsuarioVO recuperarPorCpf(String cpf) {
 
@@ -187,8 +187,13 @@ public class UsuarioService {
 		
 		return UsuarioVO.builder()
 				.id(usuarioLogado.getUsuario().getId())
+				.nomeCompleto(usuarioLogado.getUsuario().getNome())
 				.email(usuarioLogado.getUsuario().getEmail())
+				.cpf(usuarioLogado.getUsuario().getCpf())
+				.dataNascimento(usuarioLogado.getUsuario().getDataNascimento())
 				.perfil(usuarioLogado.getUsuario().getPerfil())
+				.senha(usuarioLogado.getUsuario().getSenha())
+				.senhaConfirmada(usuarioLogado.getUsuario().getSenhaConfirmada())
 				.status(usuarioLogado.getUsuario().getStatus())
 				.build();
 	}

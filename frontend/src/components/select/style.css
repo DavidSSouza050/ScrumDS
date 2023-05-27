@@ -64,3 +64,70 @@
 .containerTextInput:hover{
     border: 2px solid #79E3BD;
 }
+
+
+/*Select Cinza*/
+
+#SelectOfficeGray{
+    width: 100%;
+    height: 40px;
+    color: #000;
+    background: none;
+    border: none;
+    padding-left: 10px;
+}
+
+.optionsSelectOfficeGray{
+    background: #E1E1E6;
+}
+
+.containerInputGray{
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.labelInputGray{
+    font: 500 14px Roboto, sans-serif;
+    padding-bottom: 10px;
+    color: #000;
+}
+
+.containerTextInputGray{
+    
+    gap: 5px;
+    width: 100%;
+    height: 48px;
+    padding-left: 5px;
+    background: #E1E1E6;
+    border-radius: 4px;
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+.InputTextGray{
+    width: 100%;
+    height: 40px;
+    color: #000;
+    background: none;
+    border: none;
+    padding-left: 10px;
+}
+
+.InputTextGray::placeholder{
+    color: #e1e1e6d6
+}
+
+.containerTextInputGray:hover{
+    border: 2px solid #79E3BD;
+}

@@ -56,4 +56,10 @@ public class UsuarioController {
 		return usuarioService.listarUsuarios(token);
 	}
 	
+	/*@PutMapping("/ativar/{idUsuario}")
+	public UsuarioVO ativarUsuario (@RequestHeader(value = "Authorization") String token,
+			@PathVariable Long idUsuario) {
+		return usuarioService.ativarCadastro(token, idUsuario);
+	}*/
+	
 }

@@ -1,0 +1,41 @@
+#containerCreateProjectFull{
+    width: 100vw;
+    height: 100vh;
+}
+
+#containerCreateProject{
+    width: 45%;
+    min-height: 300px;
+    height: auto;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+#containerFormGroup{
+    width: 100%;
+    min-height: 180px;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.formGroup{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#containerButtonCreateProject{
+    width: 100%;
+    height: 50px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+#buttonCreateProject{
+    width: 400px;
+}

@@ -6,5 +6,4 @@ public enum PerfilEnum {
 	SCRUM_MASTER,
 	DEVELOPER;
 
-
 }

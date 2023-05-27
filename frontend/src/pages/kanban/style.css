@@ -1,0 +1,41 @@
+.containerKanban {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.dragDropContext {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
+.columnTitle {
+    font-size: 15px;
+    padding: 5px 0 10px 0;
+}
+
+.column {
+    background-color: #F0F0F1;
+    width: 250px;
+    height: fit-content;
+    padding: 15px 15px 15px 15px;
+    margin: 50px 10px 10px 0px;
+    border-radius: 2px;
+}
+
+.card {
+    background-color: #FFF;
+    text-align: left;
+    padding: 10px;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+}
+
+.addBacklog {
+    margin-top: 10px;
+}

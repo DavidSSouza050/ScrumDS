@@ -5,6 +5,7 @@
     margin: 0;
     box-sizing: border-box;
     outline: 0;
+    font-family: Roboto, sans-serif;
 }
 
 input, button, textarea{
@@ -21,3 +22,7 @@ button, a{
     margin-right: auto;
 }
 
+.full{
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,25 @@
+
+#containerCreateProjectProjectViwerComponent{
+    width: 45%;
+    min-height: 300px;
+    height: auto;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+#containerFormGroupProjectViwerComponent{
+    width: 100%;
+    min-height: 180px;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.formGroupProjectViwerComponent{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}

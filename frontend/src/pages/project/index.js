@@ -83,13 +83,6 @@ export default function Project() {
                     >
                         Usuarios
                     </button>
-
-                    <button
-                        className={toggleState === 3 ? "tabs pendingUsersActive" : "tabPendingUsers"}
-                        onClick={() => toggleTab(3)}
-                    >
-                        Usuarios Pendentes
-                    </button>
                 </div>
 
 
@@ -114,6 +107,17 @@ export default function Project() {
                         />
 
                     )}
+
+                    <div id="containerButtonProject">
+                        <div id="buttonNewProject">
+                            <Link to="/projectCreate">
+                                <Button
+                                    nome="Novo Projeto"
+                                />
+                            </Link>
+                        </div>
+                    </div>
+
 
                 </div>
 
@@ -141,36 +145,7 @@ export default function Project() {
                     )}
 
                 </div>
-
-
-                {/*Lista de Lista de usuarios para aprovação*/}
-
-                <div
-                    className={toggleState === 3 ? "content  activeContent" : "content"}
-                >
-
-                    <HeaderTableApproval
-                        title1="Nome"
-                        title2="Cargo"
-                        title3="Aprovação"
-                    />
-
-                    {dataUsuarios.map((usuario) =>
-
-                        <BodyTableApproval
-                            nome={usuario.nome}
-                            cargo={usuario.cargo}
-                            accept={accept}
-                            cancel={cancel}
-                            information={information}
-                            event={() => setOpenModalUserView(true)}
-                        />
-
-                    )}
-
-                </div>
             </div>
-
 
 
             <Modal 
@@ -186,19 +161,6 @@ export default function Project() {
             >
                 <ProjectViwerComponent/>
             </Modal>
-
-            
-            
-            <div id="containerButtonProject">
-                <div id="buttonNewProject">
-                    <Link to="/projectCreate">
-                        <Button
-                            nome="Novo Projeto"
-                        />
-                    </Link>
-                </div>
-            </div>
-
         </div>
     )
 }

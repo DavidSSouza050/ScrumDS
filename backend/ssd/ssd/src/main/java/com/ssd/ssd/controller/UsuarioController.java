@@ -38,7 +38,7 @@ public class UsuarioController {
 		return usuarioService.recuperar(id);
 	}
 	
-	@GetMapping("/cpf{cpf}")
+	@GetMapping("/cpf/{cpf}")
 	public UsuarioVO recuperarPorCpf(@PathVariable String cpf) {
 		return usuarioService.recuperarPorCpf(cpf);
 	}
@@ -59,9 +59,9 @@ public class UsuarioController {
 		return usuarioService.listaUsuarios(token);
 	}*/
   
-	@GetMapping("/token")
+	/*@GetMapping("/token")
 	public UsuarioVO recuperarPorToken(@RequestParam String token) {
 		return usuarioService.recuperarPorToken(token);
-	}
+	}*/
 	
 }

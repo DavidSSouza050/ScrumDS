@@ -34,12 +34,12 @@ public class UsuarioVO implements Serializable {
 	private String email;
 	
 	@Size(max = 11, min = 11, message = "CPF deve ter 11 caracteres")
-	@NotNull(message = "CPF é um campo obrigatório")
+//	@NotNull(message = "CPF é um campo obrigatório")
 //	@Pattern(regexp = "^(([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2}))$", message = "CPF informado é inválido")
 	private String cpf;
 	
 	@Past
-	@NotNull(message = "Data nascimento é um campo obrigatório")
+//	@NotNull(message = "Data nascimento é um campo obrigatório")
 	private LocalDate dataNascimento;
 	
 	private LocalDateTime dataCadastro;

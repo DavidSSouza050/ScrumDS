@@ -1,5 +1,6 @@
 package com.ssd.ssd.service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,8 +22,10 @@ import com.ssd.ssd.exception.NaoEncontradoException;
 import com.ssd.ssd.exception.ParametroInvalidoException;
 import com.ssd.ssd.repository.LoginUsuarioRepository;
 import com.ssd.ssd.repository.UsuarioRepository;
+import com.ssd.ssd.utils.Encrypt;
 import com.ssd.ssd.vo.UsuarioVO;
 import com.ssd.ssd.vo.factory.UsuarioVOFactory;
+import java.util.Arrays;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,8 +36,8 @@ public class UsuarioService {
 	private final LoginUsuarioRepository usuarioLoginRepository;
 	private final UsuarioRepository usuarioRepository;
 	
-	private static final String EMAIL_JA_CADASTRADO = " Já existe usuario cadastrado com esse email ";
-	private static final String CPF_JA_CADASTRADO = " Já existe usuario cadastrado com esss CPF ";
+	private static final String EMAIL_JA_CADASTRADO = " Já existe usuário cadastrado com esse email ";
+	private static final String CPF_JA_CADASTRADO = " Já existe usuário cadastrado com esss CPF ";
 	private static final String DIGITOS_CPF_INVALIDO = " Dígitos CPF inválidos";
 //	private static final String SENHA_INVALIDO = " Senha inválida ";
 //	private static final String EMAIL_INVALIDO = " Digite um email válido ";
@@ -73,7 +76,7 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
 	}
 
-	private UsuarioEntity recuperarUsuario(Long id) {
+	UsuarioEntity recuperarUsuario(Long id) {
 
 		return usuarioRepository.findById(id)
 				.orElseThrow(() -> new NaoEncontradoException("Usuario não encontrado " + id));
@@ -94,26 +97,6 @@ public class UsuarioService {
 		return UsuarioVOFactory.converterParaVO(usuarioByCpf);
 	}
 	
-	public static Boolean isValidPassword(String password){
-		  
-        // Regex to check valid password.
-        String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])"
-                + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
-  
-        // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-  
-        // If the password is empty // return false
-        if (password == null) {
-            return false;
-        }
-        // Pattern class contains matcher() method // to find matching between given password // and regular expression.
-        Matcher m = p.matcher(password);
-  
-        // Return if the password // matched the ReGex
-        return m.matches();
-    }
-
 	private void validarCpf(String cpf) {
 		
 		if(cpf.length() != 11) {
@@ -125,6 +108,9 @@ public class UsuarioService {
 		
 		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
 		
+		byte[] senhaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenha());
+		byte[] senhaConfirmadaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenhaConfirmada());
+		
 		return UsuarioVO.builder()
 				.id(usuarioLogado.getUsuario().getId())
 				.nomeCompleto(usuarioLogado.getUsuario().getNome())
@@ -132,8 +118,8 @@ public class UsuarioService {
 				.cpf(usuarioLogado.getUsuario().getCpf())
 				.dataNascimento(usuarioLogado.getUsuario().getDataNascimento())
 				.perfil(usuarioLogado.getUsuario().getPerfil())
-				.senha(usuarioLogado.getUsuario().getSenha())
-				.senhaConfirmada(usuarioLogado.getUsuario().getSenhaConfirmada())
+				.senha(Arrays.toString(senhaDecodificada))
+				.senhaConfirmada(Arrays.toString(senhaConfirmadaDecodificada))
 				.status(usuarioLogado.getUsuario().getStatus())
 				.build();
 	}
@@ -144,13 +130,6 @@ public class UsuarioService {
 				.orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado"));
 	}
 
-	private void validarSenhaConfirmada(String senha, String senhaConfirmada) {
-
-		if (!Objects.equals(senha, senhaConfirmada)) {
-			throw new MsgException("Senha diferentes");
-		}
-	}
-	
 	public List<UsuarioVO> listarUsuarios(String token) {
 		
 		LoginUsuarioEntity usuariosLogado = recuperarUsuarioLogadoPorToken(token);
@@ -170,11 +149,15 @@ public class UsuarioService {
 	@Transactional
 	public UsuarioVO alterar(UsuarioVO usuario) {
 		
-		validarCpf(usuario.getCpf());
-		
+		validarSenhaConfirmada(usuario.getSenha(), usuario.getSenhaConfirmada());
 		UsuarioEntity usuarioBanco = recuperarUsuario(usuario.getId());
 		
-		usuarioBanco = UsuarioEntityFactory.alterar(usuario);
+		usuarioBanco.setDataNascimento(usuario.getDataNascimento());
+		usuarioBanco.setNome(usuario.getNomeCompleto());
+		usuarioBanco.setEmail(usuario.getEmail());
+		usuarioBanco.setPerfil(usuario.getPerfil());
+		usuarioBanco.setSenha(Encrypt.getHash(usuario.getSenha()));
+		usuarioBanco.setSenhaConfirmada(Encrypt.getHash(usuario.getSenhaConfirmada()));
 		
 		usuarioRepository.save(usuarioBanco);
 
@@ -198,5 +181,32 @@ public class UsuarioService {
 
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
 	}*/
+	
+	public static Boolean isValidPassword(String password){
+		  
+        // Regex to check valid password.
+        String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
+  
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+  
+        // If the password is empty // return false
+        if (password == null) {
+            return false;
+        }
+        // Pattern class contains matcher() method // to find matching between given password // and regular expression.
+        Matcher m = p.matcher(password);
+  
+        // Return if the password // matched the ReGex
+        return m.matches();
+    }
+	
+	private void validarSenhaConfirmada(String senha, String senhaConfirmada) {
+
+		if (!Objects.equals(senha, senhaConfirmada)) {
+			throw new MsgException("Senha diferentes");
+		}
+	}
 	
 }

@@ -35,13 +35,11 @@ public class UsuarioEntityFactory {
 		if(usuario != null) {
 			return UsuarioEntity.builder()
 					.nome(usuario.getNomeCompleto())
-					.cpf(usuario.getCpf())
 					.email(usuario.getEmail())
-					.dataCadastro(usuario.getDataCadastro())
 					.dataNascimento(usuario.getDataNascimento())
 					.perfil(usuario.getPerfil())
-					.dataCadastro(LocalDateTime.now())
 					.senha(Encrypt.getHash(usuario.getSenha()))
+					.senhaConfirmada(Encrypt.getHash(usuario.getSenhaConfirmada()))
 					.build();
 		}
 		else 

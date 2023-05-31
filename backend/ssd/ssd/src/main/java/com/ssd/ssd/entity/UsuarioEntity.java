@@ -22,8 +22,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @Builder @NoArgsConstructor @AllArgsConstructor
+@Data 
 @Entity
+@Builder
+@NoArgsConstructor 
+@AllArgsConstructor
 @Table(name = "TB_SSD_USUARIO")
 public class UsuarioEntity implements Serializable{
 

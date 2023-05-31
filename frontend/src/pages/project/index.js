@@ -7,8 +7,6 @@ import './style.css';
 /*Icones */
 import IconPerfil from "../../assets/svg/Iconperfil.svg";
 import information from "../../assets/svg/information.svg";
-import accept from "../../assets/svg/accept.svg"
-import cancel from "../../assets/svg/cancel.svg"
 
 /*Componentes */
 import Header from '../../components/hearder';

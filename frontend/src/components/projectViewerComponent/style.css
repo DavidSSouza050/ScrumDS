@@ -27,7 +27,7 @@
 #textarea{
     width: 100%;
     height: 100px;
-    margin-top: 5px;
+    margin: 10px 0 20px 0;
     resize: none;
     border:none;
     padding: 5px;
@@ -36,6 +36,7 @@
 }
 #labelDescricao{
     font-weight: 600;
+    margin-bottom: 20px;
 }
 
 #listParticipants{
@@ -57,5 +58,11 @@
 
 .itemButtonViewProject{
     width: 120px;
+    height: 100%;
+}
+
+.itemButtonAddParticipants{
+    margin: 20px 0 0 0;
+    width: 200px;
     height: 100%;
 }

@@ -3,8 +3,9 @@ import './style.css'
 import { InputGray } from '../Input'
 import BodyTable from '../bodyTable'
 import information from "../../assets/svg/information.svg";
-import Button, { ButtonGray } from '../button';
+import Button, { ButtonFalseBorder, ButtonGray } from '../button';
 import { Link } from 'react-router-dom';
+import HeaderTable from '../headerTable';
 
 export default function ProjectViwerComponent() {
   return (
@@ -49,20 +50,26 @@ export default function ProjectViwerComponent() {
       
 
       <label id="labelDescricao" for="textarea">Descrição</label>
-      <textarea 
+      <textarea
         disabled
         id="textarea"
       />
-
-
+        <HeaderTable 
+            title1="Nome"
+            title2="Cargo"
+        />
         <div id="listParticipants">
           <BodyTable 
-            nome="teste"
-            status="Status"
-            information={null}
+            nome="Endrew Cavalcante"
+            status="S.M"
+            information={information}
           />
+          <div className='itemButtonAddParticipants'>
+            <ButtonFalseBorder 
+              nome="+ Adicionar Participante"
+            />
+          </div>
         <div/>
-
       </div>
       
       <div id="containerButtonViewProject">

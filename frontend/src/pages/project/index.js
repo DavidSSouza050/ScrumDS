@@ -149,6 +149,7 @@ export default function Project() {
                         <BodyTable
                             nome={projeto.nome}
                             status={projeto.status}
+                            information={information}
                             event={() => setOpenModalProjectView(true)}
                         />
 
@@ -163,18 +164,6 @@ export default function Project() {
                             </Link>
                         </div>
                     </div>
-
-                    <div id="containerButtonProject">
-                        <div id="buttonNewProject">
-                            <Link to="/projectCreate">
-                                <Button
-                                    nome="Novo Projeto"
-                                />
-                            </Link>
-                        </div>
-                    </div>
-
-
                 </div>
 
 

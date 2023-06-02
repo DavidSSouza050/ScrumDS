@@ -11,7 +11,7 @@ export default function ProjectViwerComponent() {
     <div id="containerProjectViwerComponent" className='center'>
 
       <InputGray
-        title="title do Projeto"
+        title="Título do Projeto"
         placeholder="Projeto X"
         type="text"
         disabled={true} 

@@ -1,20 +1,24 @@
 import React from 'react'
 import './style.css'
 import { InputGray } from '../Input'
+import BodyTable from '../bodyTable'
+import Button, { ButtonGray } from '../button';
+import { Link } from 'react-router-dom';
+import HeaderTable from '../headerTable';
 
 export default function ProjectViwerComponent() {
   return (
     <div id="containerProjectViwerComponent" className='center'>
 
       <InputGray
-        nome="Nome do Projeto"
+        title="title do Projeto"
         placeholder="Projeto X"
         type="text"
         disabled={true} 
       />
 
       <InputGray
-        nome="Dono do Produto"
+        title="Dono do Produto"
         placeholder="João Silva"
         type="text"
         disabled={true} 
@@ -25,35 +29,60 @@ export default function ProjectViwerComponent() {
         <div className='formGroupProjectViwerComponent'>
 
           <InputGray
-            nome="Cliente"
+            title="Cliente"
             placeholder="Amazon"
-            type="text"
-            disabled={true} 
-          />
-          <InputGray
-            nome="Time responsável pelo Desenvolvimento"
-            placeholder="Squad X"
             type="text"
             disabled={true} 
           />
         </div>
 
-        <div className='formGroup'>
+        <div className='formGroupProjectViwerComponent'>
           <InputGray
-            nome="Segmento"
+            title="Segmento"
             placeholder="Técnologia"
             type="text"
-            disabled={true} 
-          />
-          <InputGray
-            nome="Objetivo do Projeto"
-            placeholder=""
-            type="textArea"
             disabled={true} 
           />
         </div>
 
       </div>
+      
+
+      <label id="labelDescricao" for="textarea">Descrição</label>
+      <textarea
+        disabled
+        id="textarea"
+      />
+        <HeaderTable 
+            title1="Nome"
+            title2="Cargo"
+        />
+        <div id="listParticipants">
+          <BodyTable 
+            nome="Endrew Cavalcante"
+            status="S.M"
+            information={null}
+          />
+        <div/>
+      </div>
+      
+      <div id="containerButtonViewProject">
+        <div className='itemButtonViewProject'>
+           <Link to="/projectCreate">
+              <Button
+                  nome="Editar"
+              />
+            </Link>
+        </div>
+        <div className='itemButtonViewProject'>
+          <Link to="/project/kanban">
+            <ButtonGray
+                nome="Kanban"
+            />
+          </Link>
+        </div>
+      </div>
+
     </div>
   )
 }

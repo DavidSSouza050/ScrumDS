@@ -61,4 +61,14 @@ public class UsuarioController {
 			@PathVariable Long idUsuario) {
 		return usuarioService.ativarCadastro(token, idUsuario);
 	}*/
+	
+	/*@GetMapping()
+	public List<UsuarioVO> listarUsuarios(@RequestHeader(value = "Authorization") String token) {
+		return usuarioService.listaUsuarios(token);
+	}*/
+  
+	/*@GetMapping("/token")
+	public UsuarioVO recuperarPorToken(@RequestParam String token) {
+		return usuarioService.recuperarPorToken(token);
+	}*/
 }

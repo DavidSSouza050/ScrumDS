@@ -11,3 +11,9 @@ export function ButtonGray(props){
         <button className='ButtonGray' type={props.type}>{props.nome}</button>
     )
 }
+
+export function ButtonFalseBorder(props){
+    return(
+        <button className='ButtonFalseBorder' onClick={props.event} type={props.type}>{props.nome}</button>
+    )
+}

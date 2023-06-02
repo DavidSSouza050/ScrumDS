@@ -6,7 +6,7 @@ import './style.css';
 
 /*Icones */
 import IconPerfil from "../../assets/svg/Iconperfil.svg";
-
+import information from "../../assets/svg/information.svg";
 
 /*Componentes */
 import Header from '../../components/hearder';
@@ -118,8 +118,7 @@ export default function Project() {
                         onClick={() => toggleTab(1)}
                     >
                         Projetos
-                    </button>
-                    
+                    </button>                 
                     { 
                         perfil !== 'DEVELOPER' ?
                             <button
@@ -130,7 +129,6 @@ export default function Project() {
                             </button> 
                         : null
                     }
-                    
                 </div>
 
 
@@ -143,6 +141,7 @@ export default function Project() {
                     <HeaderTable
                         title1="Nome"
                         title2="Status"
+                        title3=""
                     />
 
                     {dataProject.map((projeto) =>
@@ -165,6 +164,17 @@ export default function Project() {
                         </div>
                     </div>
 
+                    <div id="containerButtonProject">
+                        <div id="buttonNewProject">
+                            <Link to="/projectCreate">
+                                <Button
+                                    nome="Novo Projeto"
+                                />
+                            </Link>
+                        </div>
+                    </div>
+
+
                 </div>
 
 
@@ -177,6 +187,7 @@ export default function Project() {
                     <HeaderTable
                         title1="Nome"
                         title2="Cargo"
+                        title3=""
                     />
 
                     {dataUsuarios.map((usuario) =>
@@ -190,9 +201,7 @@ export default function Project() {
                     )}
 
                 </div>
-
             </div>
-
 
 
             <Modal 
@@ -210,8 +219,6 @@ export default function Project() {
             >
                 <ProjectViwerComponent/>
             </Modal>
-
-
         </div>
     )
 }

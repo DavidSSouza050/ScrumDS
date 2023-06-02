@@ -63,7 +63,7 @@ export default function Kanban(){
         }
 
         //Excluir o objeto arrastado
-        var filteredSourceColumnItems =sourceColumnItems.filter((item) => item.id != result.draggableId)
+        var filteredSourceColumnItems = sourceColumnItems.filter((item) => item.id != result.draggableId)
 
         // Adicionar o mesmo na nova posição
         if(result.source.droppableId == result.destination.droppableId){
@@ -82,6 +82,9 @@ export default function Kanban(){
             columnsCopy[destinationColumnId].items = destinationColumnItems
             setColumns(columnsCopy)
         }
+        // console.log(sourceColumnItems)
+        // console.log(destinationColumnItems)
+
     }
 
     return(

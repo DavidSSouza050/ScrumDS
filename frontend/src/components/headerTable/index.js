@@ -11,29 +11,16 @@ export default function HeaderTable(props) {
       <div className='headerTitle'>
         {props.title2}
       </div>
-      <div className='headerTitle right'>
-          
-      </div>
-    </div>
-  )
-}
 
+      {
+          props.title3 != null ?
+            <div className='headerTitle right'>
+                 {props.title3}
+            </div>
+          :
+          null
 
-export function HeaderTableApproval(props){
-  return(
-    <div className='headerTable'>
-      <div className='headerTitle left'>
-        {props.title1}
-      </div>
-      <div className='headerTitle'>
-        {props.title2}
-      </div>
-      <div className='headerTitle'>
-        {props.title3}
-      </div>
-      <div className='headerTitle right'>
-          
-      </div>
+      }
     </div>
   )
 }

@@ -27,3 +27,16 @@
 .ButtonGray:active{
     background: #98989a;
 }
+
+/*Button False Border*/
+.ButtonFalseBorder{
+    width: 100%;
+    background: none;
+    border:none;
+    font-color: #79e3bcbf;
+    font: 600 15px Roboto, sans-serif;
+}
+
+.ButtonGray:active{
+    font-color: #98989a;
+}

@@ -26,34 +26,37 @@ export default function UserCreate(){
     //enviando uma requisição para a API
     const  handleSubmit = (event) => {
         event.preventDefault(); // Evita o comportamento padrão do formulário
-    
-        // Enviando dados para API
-        axios.post('http://localhost:8080/sistemas-solucoes-digitais/usuarios', {
-            nomeCompleto: nome,
-            email: email,
-            cpf: cpf,
-            dataNascimento: dataNascimento,
-            senha: senha,
-            senhaConfirmada: confirmSenha,
-            perfil: perfil
-        })
-        .then(function (response) {
-            console.log(response);
-            //limpando as caixas e redirecionando para a pagina login
-            setNome('');
-            setEmail('');
-            setCpf('');
-            setDataNascimento('');
-            setPerfil('');
-            setSenha('');
-            setConfirmSenha('');
-            location('/');
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
         
-      };
+        if(senha === confirmSenha){
+            // Enviando dados para API
+            axios.post('http://localhost:8080/sistemas-solucoes-digitais/usuarios', {
+                nomeCompleto: nome,
+                email: email,
+                cpf: cpf,
+                dataNascimento: dataNascimento,
+                senha: senha,
+                senhaConfirmada: confirmSenha,
+                perfil: perfil
+            })
+            .then(function (response) {
+                console.log(response);
+                //limpando as caixas e redirecionando para a pagina login
+                setNome('');
+                setEmail('');
+                setCpf('');
+                setDataNascimento('');
+                setPerfil('');
+                setSenha('');
+                setConfirmSenha('');
+                location('/');
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }else{
+            alert("As senhas preicsão ser iguais");
+        }
+    };
 
     return(
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import './style.css'
 
+import information from "../../assets/svg/information.svg";
+
 export default function BodyTable(props) {
   
 
@@ -13,7 +15,6 @@ export default function BodyTable(props) {
             <spam className="colorStatus"/>
             {props.status}
         </div>
-
         {
             props.information != null ?
                 <div className='bodyItem right'>

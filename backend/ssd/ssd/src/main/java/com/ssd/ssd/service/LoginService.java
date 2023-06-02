@@ -40,7 +40,6 @@ public class LoginService {
 				!Objects.equals(usuario.getCpf(), login.getCpf())) {
 			throw new NaoAutorizadoException(USUARIO_OU_SENHA_INVALIDO);
 		}
-		
 		validarStatusParaLogar(usuario);
 		LoginUsuarioEntity loginEntity = registrarLoginUsuario(usuario);
 		loginUsuarioRepository.save(loginEntity);

@@ -1,5 +1,6 @@
 import './style.css'
-
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import { HeaderBack } from '../../components/hearder'
 import back from '../../assets/svg/back.svg'
@@ -7,9 +8,83 @@ import { InputGray } from '../../components/Input'
 import Button, { ButtonGray } from '../../components/button'
 import image from  '../../assets/svg/image.svg'
 import uploadImage from '../../assets/svg/uploadImage.svg'
+import { useNavigate } from 'react-router-dom'
+import { SelectGray } from '../../components/select'
+
 
 
 export default function Perfil(){
+    //variaveis
+    const [id, setId] = useState('')
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [perfil, setPerfil] = useState('');
+    const [dataNascimento, setDataNascimento] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmSenha, setConfirmSenha] = useState('');
+
+    //*Pegando o token do usuario */
+    const token = localStorage.getItem('token');
+    
+    //* */
+    const location = useNavigate();
+
+    //fazendo a requisição do usuario ao abrir a pagina
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/sistemas-solucoes-digitais/usuarios/token/${token}`);
+                console.log(response.data);
+                
+                setId(response.data.id);
+                setNome(response.data.nomeCompleto);
+                setEmail(response.data.email);
+                setCpf(response.data.cpf);
+                setPerfil(response.data.perfil);
+                setDataNascimento(response.data.dataNascimento);    
+                setSenha(response.data.senha);
+                setConfirmSenha(response.data.senhaConfirmada);
+                
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        getUser();
+    }, []);
+
+    //enviando uma requisição para a API
+    const  updateUser = (event) => {
+        event.preventDefault(); // Evita o comportamento padrão do formulário
+        
+        if(senha === confirmSenha){
+            // Enviando dados para API
+            axios.put('http://localhost:8080/sistemas-solucoes-digitais/usuarios', {
+                id: id,
+                nomeCompleto: nome,
+                email: email,
+                cpf: cpf,
+                dataNascimento: dataNascimento,
+                senha: senha,
+                senhaConfirmada: confirmSenha,
+                perfil: perfil
+            })
+            .then(function (response) {
+                console.log(response);
+                /*atualizando a pagina */
+                location.go(0);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }else{
+            alert("As senhas preicsão ser iguais");
+        }
+    };
+
+
+
     return(
 
         <div className='containerPerfil'>
@@ -36,78 +111,94 @@ export default function Perfil(){
 
                 </div>
 
-                <div id="formPerfil">
+                <form  onSubmit={updateUser}>
+                    <div id="formPerfil">
 
-                    <InputGray
-                        nome="Nome Completo"
-                        placeholder="João Antionio Santos Augusto"
-                        type="text"
-                    />
-
-
-                    <div id='containerFormGroup'>   
-                        
-                        <div className='formGroup'>
-                            <InputGray
-                                nome="Cargo"
-                                placeholder="Desenvolvedor"
-                                type="text"
-                            />
-                            <InputGray
-                                nome="CPF"
-                                placeholder="509.XXX.XXX-7"
-                                type="text"
-                            />
-                        </div>
-
-                        <div className='formGroup'>
-                            <InputGray
-                                nome="Squad"
-                                placeholder="Squad X"
-                                type="text"
-                            />
-                            <InputGray
-                                nome="Data de Nascimento"
-                                placeholder="15/09/2000"
-                                type="text"
-                            />
-                        </div>
-                        
-                    </div>
-
-                    
-                    <div id="containerChangePassword">
-                        <div id="titleChangePassword">
-                            Alterar Senha
-                        </div>
-                        
                         <InputGray
-                            nome="Senha"
-                            placeholder="************"
+                            title="Nome Completo"
+                            placeholder="João Antionio Santos Augusto"
                             type="text"
+                            value={nome}
+                            event={(event) => setNome(event.target.value)}
                         />
-                        
                         <InputGray
-                            nome="Confirmar Senha"
-                            placeholder="***********"
+                            title="Email"
+                            placeholder="exemplo@exemplo.com"
                             type="text"
+                            value={email}
+                            event={(event) => setEmail(event.target.value)}
+                        />
+                        <InputGray
+                            title="CPF"
+                            placeholder="509.XXX.XXX-7"
+                            type="text"
+                            value={cpf}
+                            event={(event) => setCpf(event.target.value)}
                         />
 
-                        <div id="containerButtonPerfil">
-                            <div className='itemButton'>
-                                <Button
-                                    nome="Salvar"
+                        <div id='containerFormGroup'>   
+                            
+                            <div className='formGroup'>
+                                
+                                <SelectGray
+                                    title="Cargo"
+                                    name="perfil"
+                                    value={perfil}
+                                    event={(event) => setPerfil(event.target.value)}
                                 />
                             </div>
-                            <div className='itemButton'>
-                                <ButtonGray
-                                    nome="Cancelar"
+
+                            <div className='formGroup'>
+                                <InputGray
+                                    title="Data de Nascimento"
+                                    placeholder="15/09/2000"
+                                    type="text"
+                                    value={dataNascimento}
+                                    event={(event) => setDataNascimento(event.target.value)}
                                 />
+                            </div>
+                            
+                        </div>
+
+                        
+                        <div id="containerChangePassword">
+                            <div id="titleChangePassword">
+                                Alterar Senha
+                            </div>
+                            
+                            <InputGray
+                                title="Senha"
+                                placeholder="************"
+                                type="password"
+                                value={senha}
+                                event={(event) => setSenha(event.target.value)}
+                            />
+                            
+                            <InputGray
+                                title="Confirmar Senha"
+                                placeholder="***********"
+                                type="password"
+                                value={confirmSenha}
+                                event={(event) => setConfirmSenha(event.target.value)}
+                            />
+
+                            <div id="containerButtonPerfil">
+                                <div className='itemButton'>
+                                    <Button
+                                        nome="Salvar"
+                                        type="submit"
+                                    />
+                                </div>
+                                <div className='itemButton'>
+                                    <ButtonGray
+                                        nome="Cancelar"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                </div>
+                
+                </form>
 
             </div>
 

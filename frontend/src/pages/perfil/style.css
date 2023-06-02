@@ -55,7 +55,7 @@ input[type="file"]{
 
 #containerFormGroup{
     width: 100%;
-    min-height: 315px;
+    min-height: 50px;
     height: auto;
     overflow: hidden;
 
@@ -74,7 +74,6 @@ input[type="file"]{
 
 #containerChangePassword{
     width: 100%;
-    margin-top: 40px;
     min-height: 200px;
     height: auto;
     overflow: hidden;

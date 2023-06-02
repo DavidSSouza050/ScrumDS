@@ -1,11 +1,14 @@
 package com.ssd.ssd.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +31,7 @@ public class UsuarioController {
 		return usuarioService.cadastrar(usuario);
 	}
 	
-	@GetMapping("/token{token}")
+	@GetMapping("/token/{token}")
 	public UsuarioVO recuperarPorToken(@PathVariable String token) {
 		return usuarioService.recuperarPorToken(token);
 	}
@@ -43,10 +46,15 @@ public class UsuarioController {
 		return usuarioService.recuperarPorCpf(cpf);
 	}
 	
-	/*@PutMapping()
+	@PutMapping()
 	public UsuarioVO atualizarUsuario (@RequestBody @Valid UsuarioVO usuario) {
 		return usuarioService.alterar(usuario);
-	}*/
+	}
+	
+	@GetMapping("/listar/{token}")
+	public List<UsuarioVO> listarUsuarios(@PathVariable String token) {
+		return usuarioService.listarUsuarios(token);
+	}
 	
 	/*@PutMapping("/ativar/{idUsuario}")
 	public UsuarioVO ativarUsuario (@RequestHeader(value = "Authorization") String token,
@@ -63,5 +71,4 @@ public class UsuarioController {
 	public UsuarioVO recuperarPorToken(@RequestParam String token) {
 		return usuarioService.recuperarPorToken(token);
 	}*/
-	
 }

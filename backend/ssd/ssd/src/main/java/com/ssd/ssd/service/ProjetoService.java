@@ -11,6 +11,7 @@ import com.ssd.ssd.entity.TimeScrumEntity;
 import com.ssd.ssd.entity.UsuarioEntity;
 import com.ssd.ssd.entity.factory.ClienteSolicitanteEntityFactory;
 import com.ssd.ssd.entity.factory.ProjetoEntityFactory;
+import com.ssd.ssd.enumerator.PerfilEnum;
 import com.ssd.ssd.exception.MsgException;
 import com.ssd.ssd.repository.ProjetoRepository;
 import com.ssd.ssd.repository.TimeScrumRespository;
@@ -50,6 +51,10 @@ public class ProjetoService {
 	}
 
 	private void gravarListaDesenvolvidores(ProjetoEntity projetoEntity, List<TimeScrumVO> times) {
+		
+		if(times.stream().noneMatch(r-> r.getPerfil().equals(PerfilEnum.PRODUCT_OWNER))) {
+			throw new MsgException("É necessário incluir um Product Owner no projeto");
+		}
 		
 		times.forEach(t-> {
 			

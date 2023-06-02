@@ -40,7 +40,7 @@ public class ClienteSolicitanteEntity implements Serializable {
 	@Column(name = "CPF_CNPJ", nullable = false, length = 14)
 	private String cpfCnpj;
 	
-	@Column(name = "TELEFONE", nullable = false, length = 10)
+	@Column(name = "TELEFONE", nullable = false, length = 11)
 	private String telefone;
 	
 	@Column(name = "EMAIL", nullable = false, length = 50)

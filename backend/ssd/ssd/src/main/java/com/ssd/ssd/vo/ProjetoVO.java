@@ -1,6 +1,7 @@
 package com.ssd.ssd.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -34,7 +35,8 @@ public class ProjetoVO implements Serializable {
 	@NotNull(message = "Status é um campo obrigatório")
 	private SituacaoEnum status;
 	
-	private List<TimeScrumVO> times;
+	@Builder.Default
+	private List<TimeScrumVO> times = new ArrayList<>();
 	
 	@Valid
 	private ClienteSolicitanteVO cliente;

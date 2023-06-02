@@ -163,18 +163,6 @@ export default function Project() {
                             </Link>
                         </div>
                     </div>
-
-                    <div id="containerButtonProject">
-                        <div id="buttonNewProject">
-                            <Link to="/projectCreate">
-                                <Button
-                                    nome="Novo Projeto"
-                                />
-                            </Link>
-                        </div>
-                    </div>
-
-
                 </div>
 
 

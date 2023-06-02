@@ -2,8 +2,7 @@ import React from 'react'
 import './style.css'
 import { InputGray } from '../Input'
 import BodyTable from '../bodyTable'
-import information from "../../assets/svg/information.svg";
-import Button, { ButtonFalseBorder, ButtonGray } from '../button';
+import Button, { ButtonGray } from '../button';
 import { Link } from 'react-router-dom';
 import HeaderTable from '../headerTable';
 
@@ -62,13 +61,8 @@ export default function ProjectViwerComponent() {
           <BodyTable 
             nome="Endrew Cavalcante"
             status="S.M"
-            information={information}
+            information={null}
           />
-          <div className='itemButtonAddParticipants'>
-            <ButtonFalseBorder 
-              nome="+ Adicionar Participante"
-            />
-          </div>
         <div/>
       </div>
       

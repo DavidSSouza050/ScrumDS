@@ -11,9 +11,16 @@ export default function HeaderTable(props) {
       <div className='headerTitle'>
         {props.title2}
       </div>
-      <div className='headerTitle right'>
-          
-      </div>
+
+      {
+          props.title3 != null ?
+            <div className='headerTitle right'>
+                 {props.title3}
+            </div>
+          :
+          null
+
+      }
     </div>
   )
 }

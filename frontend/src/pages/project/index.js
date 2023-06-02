@@ -93,6 +93,7 @@ export default function Project() {
                     <HeaderTable
                         title1="Nome"
                         title2="Status"
+                        title3=""
                     />
 
                     {dataProject.map((projeto) =>
@@ -129,6 +130,7 @@ export default function Project() {
                     <HeaderTable
                         title1="Nome"
                         title2="Cargo"
+                        title3=""
                     />
 
                     {dataUsuarios.map((usuario) =>

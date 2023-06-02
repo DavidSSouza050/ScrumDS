@@ -14,6 +14,6 @@ export function ButtonGray(props){
 
 export function ButtonFalseBorder(props){
     return(
-        <button className='ButtonFalseBorder' type={props.type}>{props.nome}</button>
+        <button className='ButtonFalseBorder' onClick={props.event} type={props.type}>{props.nome}</button>
     )
 }

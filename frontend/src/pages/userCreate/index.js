@@ -9,6 +9,7 @@ import Button from '../../components/button';
 import Select from '../../components/select';
 
 import { useState } from 'react';
+import { insertMaskInCpf } from '../../utils/masks/cpf';
 
 export default function UserCreate(){
     //variaveis
@@ -23,9 +24,12 @@ export default function UserCreate(){
     //voltar a pagina
     const location = useNavigate();
 
+
+
     //enviando uma requisição para a API
     const  handleSubmit = (event) => {
         event.preventDefault(); // Evita o comportamento padrão do formulário
+    
         
         if(senha === confirmSenha){
             // Enviando dados para API
@@ -57,6 +61,7 @@ export default function UserCreate(){
             alert("As senhas preicsão ser iguais");
         }
     };
+
 
     return(
 
@@ -93,7 +98,8 @@ export default function UserCreate(){
                                 title="CPF"
                                 name="cpf"
                                 type="text"
-                                value={cpf}
+                                maxLength="14"
+                                value={insertMaskInCpf(cpf)}
                                 event={(event) => setCpf(event.target.value)}
                             />
                             <Input
@@ -120,7 +126,7 @@ export default function UserCreate(){
                                 placeholder="__/__/__"
                                 title="Data de Nascimento"
                                 name="dataNascimento"
-                                type="text"
+                                type="date"
                                 value={dataNascimento}
                                 event={(event) => setDataNascimento(event.target.value)}
                             />

@@ -7,11 +7,11 @@ export default function Select(props) {
     <div className='containerInput'>
         <label className="labelInput" for={props.title}>{props.title}</label>
         <div className='containerTextInput'>
-            <select id="SelectOffice" value={props.value} onChange={props.event} name={props.name}>
+            <select id="SelectOffice" value={props.value} onChange={props.event} name={props.name} disabled={props.disabled}>
                 <option className='optionsSelectOffice' value="" selected>Selecione um Cargo</option>
                 <option className='optionsSelectOffice' value="PRODUCT_OWNER" >Dono do Projeto</option>
                 <option className='optionsSelectOffice' value="SCRUM_MASTER" >Srum Master</option>
-                <option className='optionsSelectOffice' value="DESENVOLVIDOR" >Desenvolvedor</option>
+                <option className='optionsSelectOffice' value="DEVELOPER" >Desenvolvedor</option>
             </select>
         </div>
     </div>
@@ -25,7 +25,7 @@ export function SelectGray(props) {
     <div className='containerInputGray'>
         <label className="labelInputGray" for={props.title}>{props.title}</label>
         <div className='containerTextInputGray'>
-            <select id="SelectOfficeGray" value={props.value} onChange={props.event} name={props.name}>
+            <select id="SelectOfficeGray" value={props.value} onChange={props.event} name={props.name} disabled={props.disabled}>
                 <option className='optionsSelectOfficeGray' value="" selected>Selecione um Cargo</option>
                 <option className='optionsSelectOfficeGray' value="PRODUCT_OWNER" >Dono do Projeto</option>
                 <option className='optionsSelectOfficeGray' value="SCRUM_MASTER" >Srum Master</option>

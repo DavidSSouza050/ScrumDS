@@ -10,6 +10,7 @@ import image from  '../../assets/svg/image.svg'
 import uploadImage from '../../assets/svg/uploadImage.svg'
 import { useNavigate } from 'react-router-dom'
 import { SelectGray } from '../../components/select'
+import { insertMaskInCpf } from '../../utils/masks/cpf'
 
 
 
@@ -45,7 +46,6 @@ export default function Perfil(){
                 setDataNascimento(response.data.dataNascimento);    
                 setSenha(response.data.senha);
                 setConfirmSenha(response.data.senhaConfirmada);
-                
             } catch (error) {
                 console.error(error);
             }
@@ -55,7 +55,7 @@ export default function Perfil(){
     }, []);
 
     //enviando uma requisição para a API
-    const  updateUser = (event) => {
+    const updateUser = (event) => {
         event.preventDefault(); // Evita o comportamento padrão do formulário
         
         if(senha === confirmSenha){
@@ -64,7 +64,6 @@ export default function Perfil(){
                 id: id,
                 nomeCompleto: nome,
                 email: email,
-                cpf: cpf,
                 dataNascimento: dataNascimento,
                 senha: senha,
                 senhaConfirmada: confirmSenha,
@@ -73,10 +72,12 @@ export default function Perfil(){
             .then(function (response) {
                 console.log(response);
                 /*atualizando a pagina */
-                location.go(0);
+                alert('Dados Atualizados com sucesso!')
+                location('/perfil', { replace: true });
             })
             .catch(function (error) {
                 console.log(error);
+                alert('Ocorreu um erro, tente novamente!')
             })
         }else{
             alert("As senhas preicsão ser iguais");
@@ -116,23 +117,21 @@ export default function Perfil(){
 
                         <InputGray
                             title="Nome Completo"
-                            placeholder="João Antionio Santos Augusto"
                             type="text"
                             value={nome}
                             event={(event) => setNome(event.target.value)}
                         />
                         <InputGray
                             title="Email"
-                            placeholder="exemplo@exemplo.com"
                             type="text"
                             value={email}
                             event={(event) => setEmail(event.target.value)}
                         />
                         <InputGray
                             title="CPF"
-                            placeholder="509.XXX.XXX-7"
+                            disabled={true}
                             type="text"
-                            value={cpf}
+                            value={insertMaskInCpf(cpf)}
                             event={(event) => setCpf(event.target.value)}
                         />
 
@@ -144,6 +143,7 @@ export default function Perfil(){
                                     title="Cargo"
                                     name="perfil"
                                     value={perfil}
+                                    disabled={true}
                                     event={(event) => setPerfil(event.target.value)}
                                 />
                             </div>
@@ -151,8 +151,7 @@ export default function Perfil(){
                             <div className='formGroup'>
                                 <InputGray
                                     title="Data de Nascimento"
-                                    placeholder="15/09/2000"
-                                    type="text"
+                                    type="date"
                                     value={dataNascimento}
                                     event={(event) => setDataNascimento(event.target.value)}
                                 />

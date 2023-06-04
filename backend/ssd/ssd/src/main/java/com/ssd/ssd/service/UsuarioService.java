@@ -1,6 +1,5 @@
 package com.ssd.ssd.service;
 
-import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,10 +21,8 @@ import com.ssd.ssd.exception.NaoEncontradoException;
 import com.ssd.ssd.exception.ParametroInvalidoException;
 import com.ssd.ssd.repository.LoginUsuarioRepository;
 import com.ssd.ssd.repository.UsuarioRepository;
-import com.ssd.ssd.utils.Encrypt;
 import com.ssd.ssd.vo.UsuarioVO;
 import com.ssd.ssd.vo.factory.UsuarioVOFactory;
-import java.util.Arrays;
 
 import lombok.RequiredArgsConstructor;
 
@@ -108,8 +105,8 @@ public class UsuarioService {
 		
 		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
 		
-		byte[] senhaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenha());
-		byte[] senhaConfirmadaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenhaConfirmada());
+//		byte[] senhaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenha());
+//		byte[] senhaConfirmadaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenhaConfirmada());
 		
 		return UsuarioVO.builder()
 				.id(usuarioLogado.getUsuario().getId())
@@ -118,8 +115,8 @@ public class UsuarioService {
 				.cpf(usuarioLogado.getUsuario().getCpf())
 				.dataNascimento(usuarioLogado.getUsuario().getDataNascimento())
 				.perfil(usuarioLogado.getUsuario().getPerfil())
-				.senha(Arrays.toString(senhaDecodificada))
-				.senhaConfirmada(Arrays.toString(senhaConfirmadaDecodificada))
+//				.senha(Arrays.toString(senhaDecodificada))
+//				.senhaConfirmada(Arrays.toString(senhaConfirmadaDecodificada))
 				.status(usuarioLogado.getUsuario().getStatus())
 				.build();
 	}
@@ -156,8 +153,8 @@ public class UsuarioService {
 		usuarioBanco.setNome(usuario.getNomeCompleto());
 		usuarioBanco.setEmail(usuario.getEmail());
 		usuarioBanco.setPerfil(usuario.getPerfil());
-		usuarioBanco.setSenha(Encrypt.getHash(usuario.getSenha()));
-		usuarioBanco.setSenhaConfirmada(Encrypt.getHash(usuario.getSenhaConfirmada()));
+//		usuarioBanco.setSenha(Encrypt.getHash(usuario.getSenha()));
+//		usuarioBanco.setSenhaConfirmada(Encrypt.getHash(usuario.getSenhaConfirmada()));
 		
 		usuarioRepository.save(usuarioBanco);
 
@@ -207,6 +204,20 @@ public class UsuarioService {
 		if (!Objects.equals(senha, senhaConfirmada)) {
 			throw new MsgException("Senha diferentes");
 		}
+	}
+
+	public UsuarioVO recuperarUsuarioDevProdutOwner(String cpf) {
+		
+		validarCpf(cpf);
+		
+		UsuarioEntity usuarioByCpf = usuarioRepository.findUsurioPefilDevProdutOwner(cpf, PerfilEnum.DEVELOPER, PerfilEnum.PRODUCT_OWNER)
+				.orElseThrow(() -> new NaoEncontradoException("Usuário com " + cpf + " não encontrado"));
+		
+		return UsuarioVO.builder()
+				.id(usuarioByCpf.getId())
+				.nomeCompleto(usuarioByCpf.getNome())
+				.perfil(usuarioByCpf.getPerfil())
+				.build();
 	}
 	
 }

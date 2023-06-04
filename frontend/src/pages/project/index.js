@@ -184,6 +184,7 @@ export default function Project() {
                         <BodyTable
                             nome={usuario.nomeCompleto}
                             status={cargoUsuario(usuario.perfil)}
+                            information={information}
                             event={() => userSelected(usuario.id)}
                         />
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import './style.css'
 
-import information from "../../assets/svg/information.svg";
 
 export default function BodyTable(props) {
   

@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import Button from '../../components/button';
 import { useState } from 'react';
+import { insertMaskInCpf } from '../../utils/masks/cpf';
 
 export default function Login(){
     //variaveis
@@ -51,7 +52,8 @@ export default function Login(){
                         title="CPF"
                         placeholder="___.___.___-__"
                         type="text"
-                        value={cpf}
+                        maxLength="14"
+                        value={insertMaskInCpf(cpf)}
                         event={(event) => setCpf(event.target.value)}
                     />
                     

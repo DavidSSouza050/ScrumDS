@@ -56,6 +56,11 @@ public class UsuarioController {
 		return usuarioService.listarUsuarios(token);
 	}
 	
+	@GetMapping("/times/{cpf}")
+	public UsuarioVO recuperarUsuarioDevProdutOwner(@PathVariable String cpf) {
+		return usuarioService.recuperarUsuarioDevProdutOwner(cpf);
+	}
+	
 	/*@PutMapping("/ativar/{idUsuario}")
 	public UsuarioVO ativarUsuario (@RequestHeader(value = "Authorization") String token,
 			@PathVariable Long idUsuario) {

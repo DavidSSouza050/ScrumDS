@@ -37,11 +37,17 @@ public class ProjetoService {
 		
 		UsuarioEntity usuarioScrum = usuarioService.recuperarUsuario(projetoVO.getIdUsuarioScrum());
 		
+		if(usuarioScrum.getPerfil() != PerfilEnum.SCRUM_MASTER) {
+			throw new MsgException("A criação do projeto é permitido pelo usuário Scrum Master");
+		}
+		
+		UsuarioEntity usuarioProduct = usuarioService.recuperarUsuario(projetoVO.getIdProductOwner());
+		
 		ClienteSolicitanteEntity cliente = ClienteSolicitanteEntityFactory.converterParaVO(projetoVO.getCliente());
 		
-		ProjetoEntity projetoEntity = ProjetoEntityFactory.converterParaEntity(projetoVO, usuarioScrum, cliente);
+		ProjetoEntity projetoEntity = ProjetoEntityFactory.converterParaEntity(projetoVO, usuarioScrum, cliente, usuarioProduct);
 		
-		projetoRepository.save(projetoEntity);
+		projetoEntity = projetoRepository.save(projetoEntity);
 		
 		gravarListaDesenvolvidores(projetoEntity, projetoVO.getTimes());
 		

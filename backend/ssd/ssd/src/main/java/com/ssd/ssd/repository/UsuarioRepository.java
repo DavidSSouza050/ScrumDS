@@ -22,7 +22,15 @@ public interface UsuarioRepository  extends JpaRepository<UsuarioEntity, Long>{
 
 	@Query("SELECT usuario FROM UsuarioEntity usuario "
 			+"WHERE usuario.cpf = :cpf "
-			+"AND  (usuario.perfil = :developer OR usuario.perfil = :produtOwer)")
-	Optional<UsuarioEntity> findUsurioPefilDevProdutOwner(String cpf, PerfilEnum developer, PerfilEnum produtOwer);
+			+"AND usuario.perfil = :developer ")
+	Optional<UsuarioEntity> findUsurioPefilDev(String cpf, PerfilEnum developer);
+	
+	@Query("SELECT usuario FROM UsuarioEntity usuario "
+			+"WHERE usuario.cpf = :cpf "
+			+"AND usuario.perfil = :product ")
+	Optional<UsuarioEntity> findUsurioPefilProdutOwner(String cpf, PerfilEnum product);
+	
+	
+	
 
 }

@@ -45,12 +45,12 @@ public class UsuarioVO implements Serializable {
 	private LocalDateTime dataCadastro;
 	
 	@Size(max = 50, min = 8, message = "A senha deve ter no minimo 8 caracteres e maximo 16")
-	@NotNull(message = "Senha é um campo obrigatório")
+//	@NotNull(message = "Senha é um campo obrigatório")
 //	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\\\S+$).{8,20}$")
 	private String senha;
 	
 	@Size(max = 50, min = 8, message = "A senha deve ter no minimo 8 caracteres e maximo 16")
-	@NotNull(message = "Senha é um campo obrigatório")
+//	@NotNull(message = "Senha é um campo obrigatório")
 	private String senhaConfirmada;
 	
 	@NotNull(message = "Perfil é um campo obrigatório")

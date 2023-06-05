@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 public class ProjetoEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "IDENT")
@@ -57,6 +57,10 @@ public class ProjetoEntity implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_SCRUM_MASTER", referencedColumnName = "IDENT", nullable=false)
 	private UsuarioEntity scrumMaster;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PRODUCT_OWNER", referencedColumnName = "IDENT", nullable=false)
+	private UsuarioEntity produtOwner;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_CLIENTE_SOLICITANTE", referencedColumnName = "IDENT", nullable=false)

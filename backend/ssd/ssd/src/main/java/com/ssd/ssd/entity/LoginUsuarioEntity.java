@@ -30,10 +30,10 @@ public class LoginUsuarioEntity implements Serializable{
 	@Column(name = "IDENT")
 	private Long id;
 	
-	@Column(name = "DATA_HORA")
+	@Column(name = "DATA_HORA", nullable =  false)
 	private LocalDateTime dataHora;
 	
-	@Column(name = "TOKEN")
+	@Column(name = "TOKEN", nullable = false)
 	private String token;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

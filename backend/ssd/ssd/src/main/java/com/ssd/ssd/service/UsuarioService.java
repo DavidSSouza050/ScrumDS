@@ -29,38 +29,39 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
-	
+
 	private final LoginUsuarioRepository usuarioLoginRepository;
 	private final UsuarioRepository usuarioRepository;
-	
+
 	private static final String EMAIL_JA_CADASTRADO = " Já existe usuário cadastrado com esse email ";
 	private static final String CPF_JA_CADASTRADO = " Já existe usuário cadastrado com esss CPF ";
 	private static final String DIGITOS_CPF_INVALIDO = " Dígitos CPF inválidos";
 //	private static final String SENHA_INVALIDO = " Senha inválida ";
 //	private static final String EMAIL_INVALIDO = " Digite um email válido ";
 	private static final String USUARIO_NAO_AUTORIZADO = "Usuário não autorização para esta requesição";
-	
+
 	@Transactional
 	public UsuarioVO cadastrar(UsuarioVO usuario) {
-		
+
 		validarSenhaConfirmada(usuario.getSenha(), usuario.getSenhaConfirmada());
-		
-		/*Boolean validPassword = isValidPassword(usuario.getSenha());
-		
-		if(!Objects.equals(Boolean.TRUE.toString(), validPassword.toString())) {
-			throw new MsgException(SENHA_INVALIDO);
-		}*/
+
+		/*
+		 * Boolean validPassword = isValidPassword(usuario.getSenha());
+		 * 
+		 * if(!Objects.equals(Boolean.TRUE.toString(), validPassword.toString())) {
+		 * throw new MsgException(SENHA_INVALIDO); }
+		 */
 		Optional<UsuarioEntity> optionalByCpf = usuarioRepository.findByCpf(usuario.getCpf());
-		if(optionalByCpf.isPresent()) {
+		if (optionalByCpf.isPresent()) {
 			throw new DadosJaCadastradosException(CPF_JA_CADASTRADO);
 		}
 		Optional<UsuarioEntity> optionalByEmail = usuarioRepository.findByEmail(usuario.getEmail());
-		if(optionalByEmail.isPresent()) {
+		if (optionalByEmail.isPresent()) {
 			throw new DadosJaCadastradosException(EMAIL_JA_CADASTRADO);
 		}
-		
+
 		UsuarioEntity usuarioEntity = UsuarioEntityFactory.converterParaEntity(usuario);
-		
+
 		usuarioRepository.save(usuarioEntity);
 
 		return UsuarioVOFactory.converterParaVO(usuarioEntity);
@@ -78,7 +79,7 @@ public class UsuarioService {
 		return usuarioRepository.findById(id)
 				.orElseThrow(() -> new NaoEncontradoException("Usuario não encontrado " + id));
 	}
-	
+
 	public UsuarioVO recuperarPorCpf(String cpf) {
 
 //		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
@@ -93,34 +94,30 @@ public class UsuarioService {
 
 		return UsuarioVOFactory.converterParaVO(usuarioByCpf);
 	}
-	
+
 	private void validarCpf(String cpf) {
-		
-		if(cpf.length() != 11) {
+
+		if (cpf.length() != 11) {
 			throw new ParametroInvalidoException(DIGITOS_CPF_INVALIDO);
 		}
 	}
 
 	public UsuarioVO recuperarPorToken(String token) {
-		
+
 		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
-		
+
 //		byte[] senhaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenha());
 //		byte[] senhaConfirmadaDecodificada = Base64.getUrlDecoder().decode(usuarioLogado.getUsuario().getSenhaConfirmada());
-		
-		return UsuarioVO.builder()
-				.id(usuarioLogado.getUsuario().getId())
-				.nomeCompleto(usuarioLogado.getUsuario().getNome())
-				.email(usuarioLogado.getUsuario().getEmail())
-				.cpf(usuarioLogado.getUsuario().getCpf())
-				.dataNascimento(usuarioLogado.getUsuario().getDataNascimento())
+
+		return UsuarioVO.builder().id(usuarioLogado.getUsuario().getId())
+				.nomeCompleto(usuarioLogado.getUsuario().getNome()).email(usuarioLogado.getUsuario().getEmail())
+				.cpf(usuarioLogado.getUsuario().getCpf()).dataNascimento(usuarioLogado.getUsuario().getDataNascimento())
 				.perfil(usuarioLogado.getUsuario().getPerfil())
 //				.senha(Arrays.toString(senhaDecodificada))
 //				.senhaConfirmada(Arrays.toString(senhaConfirmadaDecodificada))
-				.status(usuarioLogado.getUsuario().getStatus())
-				.build();
+				.status(usuarioLogado.getUsuario().getStatus()).build();
 	}
-	
+
 	private LoginUsuarioEntity recuperarUsuarioLogadoPorToken(String token) {
 
 		return usuarioLoginRepository.findByLogadoToken(token)
@@ -128,11 +125,11 @@ public class UsuarioService {
 	}
 
 	public List<UsuarioVO> listarUsuarios(String token) {
-		
+
 		LoginUsuarioEntity usuariosLogado = recuperarUsuarioLogadoPorToken(token);
-		
-		if(!usuariosLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)
-				&& !usuariosLogado.getUsuario().getPerfil().equals(PerfilEnum.SCRUM_MASTER) ) {
+
+		if (!usuariosLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)
+				&& !usuariosLogado.getUsuario().getPerfil().equals(PerfilEnum.SCRUM_MASTER)) {
 			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
 		}
 		List<UsuarioEntity> usuarios = usuarioRepository.findUsuarios();
@@ -142,82 +139,98 @@ public class UsuarioService {
 		}
 		return UsuarioVOFactory.converterParaList(usuarios);
 	}
-	
+
 	@Transactional
 	public UsuarioVO alterar(UsuarioVO usuario) {
-		
+
 		validarSenhaConfirmada(usuario.getSenha(), usuario.getSenhaConfirmada());
 		UsuarioEntity usuarioBanco = recuperarUsuario(usuario.getId());
-		
+
 		usuarioBanco.setDataNascimento(usuario.getDataNascimento());
 		usuarioBanco.setNome(usuario.getNomeCompleto());
 		usuarioBanco.setEmail(usuario.getEmail());
 		usuarioBanco.setPerfil(usuario.getPerfil());
 //		usuarioBanco.setSenha(Encrypt.getHash(usuario.getSenha()));
 //		usuarioBanco.setSenhaConfirmada(Encrypt.getHash(usuario.getSenhaConfirmada()));
-		
+
 		usuarioRepository.save(usuarioBanco);
 
 		return UsuarioVOFactory.converterParaVO(usuarioBanco);
 	}
-	
-	/*@Transactional
-	public UsuarioVO ativarCadastro(String token, Long idUsuario) {
 
-		LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
-		
-		if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
-			throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO);
+	/*
+	 * @Transactional public UsuarioVO ativarCadastro(String token, Long idUsuario)
+	 * {
+	 * 
+	 * LoginUsuarioEntity usuarioLogado = recuperarUsuarioLogadoPorToken(token);
+	 * 
+	 * if(!usuarioLogado.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER))
+	 * { throw new NaoAutorizadoException(USUARIO_NAO_AUTORIZADO); }
+	 * 
+	 * UsuarioEntity usuarioBanco = recuperarUsuario(idUsuario);
+	 * 
+	 * usuarioBanco.setStatus(StatusEnum.ATIVO);
+	 * 
+	 * usuarioRepository.save(usuarioBanco);
+	 * 
+	 * return UsuarioVOFactory.converterParaVO(usuarioBanco); }
+	 */
+
+	public static Boolean isValidPassword(String password) {
+
+		// Regex to check valid password.
+		String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
+
+		// Compile the ReGex
+		Pattern p = Pattern.compile(regex);
+
+		// If the password is empty // return false
+		if (password == null) {
+			return false;
 		}
-		
-		UsuarioEntity usuarioBanco = recuperarUsuario(idUsuario);
+		// Pattern class contains matcher() method // to find matching between given
+		// password // and regular expression.
+		Matcher m = p.matcher(password);
 
-		usuarioBanco.setStatus(StatusEnum.ATIVO);
+		// Return if the password // matched the ReGex
+		return m.matches();
+	}
 
-		usuarioRepository.save(usuarioBanco);
-
-		return UsuarioVOFactory.converterParaVO(usuarioBanco);
-	}*/
-	
-	public static Boolean isValidPassword(String password){
-		  
-        // Regex to check valid password.
-        String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])"
-                + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
-  
-        // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-  
-        // If the password is empty // return false
-        if (password == null) {
-            return false;
-        }
-        // Pattern class contains matcher() method // to find matching between given password // and regular expression.
-        Matcher m = p.matcher(password);
-  
-        // Return if the password // matched the ReGex
-        return m.matches();
-    }
-	
 	private void validarSenhaConfirmada(String senha, String senhaConfirmada) {
+
+		if (senha == null) {
+			throw new MsgException("Senha é um campo obrigatório");
+		}
+
+		if (senhaConfirmada == null) {
+			throw new MsgException("Senha confirmada é um campo obrigatório");
+		}
 
 		if (!Objects.equals(senha, senhaConfirmada)) {
 			throw new MsgException("Senha diferentes");
 		}
 	}
 
-	public UsuarioVO recuperarUsuarioDevProdutOwner(String cpf) {
-		
+	public UsuarioVO recuperarDesenvolidores(String cpf) {
+
 		validarCpf(cpf);
-		
-		UsuarioEntity usuarioByCpf = usuarioRepository.findUsurioPefilDevProdutOwner(cpf, PerfilEnum.DEVELOPER, PerfilEnum.PRODUCT_OWNER)
+
+		UsuarioEntity usuarioByCpf = usuarioRepository.findUsurioPefilDev(cpf, PerfilEnum.DEVELOPER)
 				.orElseThrow(() -> new NaoEncontradoException("Usuário com " + cpf + " não encontrado"));
-		
-		return UsuarioVO.builder()
-				.id(usuarioByCpf.getId())
-				.nomeCompleto(usuarioByCpf.getNome())
-				.perfil(usuarioByCpf.getPerfil())
-				.build();
+
+		return UsuarioVO.builder().id(usuarioByCpf.getId()).nomeCompleto(usuarioByCpf.getNome())
+				.perfil(usuarioByCpf.getPerfil()).build();
 	}
-	
+
+	public UsuarioVO recuperarProdutOwner(String cpf) {
+
+		validarCpf(cpf);
+
+		UsuarioEntity usuarioByCpf = usuarioRepository.findUsurioPefilProdutOwner(cpf, PerfilEnum.PRODUCT_OWNER)
+				.orElseThrow(() -> new NaoEncontradoException("Usuário com " + cpf + " não encontrado"));
+
+		return UsuarioVO.builder().id(usuarioByCpf.getId()).nomeCompleto(usuarioByCpf.getNome())
+				.perfil(usuarioByCpf.getPerfil()).build();
+	}
+
 }

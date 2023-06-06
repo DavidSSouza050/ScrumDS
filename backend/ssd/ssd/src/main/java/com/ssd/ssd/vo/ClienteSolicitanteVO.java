@@ -15,6 +15,8 @@ import lombok.Data;
 public class ClienteSolicitanteVO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	private Long id;
 
 	@Size(max = 50)
 	@NotNull(message = "Telefone é um campo obrigatório")

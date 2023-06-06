@@ -36,7 +36,7 @@ public class LoginUsuarioEntity implements Serializable{
 	@Column(name = "TOKEN", nullable = false)
 	private String token;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_USUARIO", referencedColumnName = "IDENT", nullable=false)
 	private UsuarioEntity usuario;
 	

@@ -53,11 +53,11 @@ public class UsuarioService {
 		 */
 		Optional<UsuarioEntity> optionalByCpf = usuarioRepository.findByCpf(usuario.getCpf());
 		if (optionalByCpf.isPresent()) {
-			throw new DadosJaCadastradosException(CPF_JA_CADASTRADO);
+			throw new DadosJaCadastradosException(CPF_JA_CADASTRADO + optionalByCpf.get().getCpf());
 		}
 		Optional<UsuarioEntity> optionalByEmail = usuarioRepository.findByEmail(usuario.getEmail());
 		if (optionalByEmail.isPresent()) {
-			throw new DadosJaCadastradosException(EMAIL_JA_CADASTRADO);
+			throw new DadosJaCadastradosException(EMAIL_JA_CADASTRADO + optionalByEmail.get().getEmail());
 		}
 
 		UsuarioEntity usuarioEntity = UsuarioEntityFactory.converterParaEntity(usuario);
@@ -118,10 +118,10 @@ public class UsuarioService {
 				.status(usuarioLogado.getUsuario().getStatus()).build();
 	}
 
-	private LoginUsuarioEntity recuperarUsuarioLogadoPorToken(String token) {
+	LoginUsuarioEntity recuperarUsuarioLogadoPorToken(String token) {
 
 		return usuarioLoginRepository.findByLogadoToken(token)
-				.orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado"));
+				.orElseThrow(() ->new NaoEncontradoException("Usuário com TOKEN{} " +token + "não encontrado"));
 	}
 
 	public List<UsuarioVO> listarUsuarios(String token) {

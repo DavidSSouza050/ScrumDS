@@ -15,5 +15,7 @@ public class TimeScrumVO implements Serializable {
 	
 	private Long idUsuario;
 	private PerfilEnum perfil;
+	private String nome;
+	private String cpf;
 
 }

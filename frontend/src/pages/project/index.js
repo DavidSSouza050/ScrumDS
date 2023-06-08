@@ -34,6 +34,7 @@ export default function Project() {
 
   //*Pegando o token do usuario */
   const token = localStorage.getItem('token');
+  console.log(token)
   
   //fazendo a requisição do usuario ao abrir a pagina
     useEffect(() => {

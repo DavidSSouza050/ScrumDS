@@ -1,5 +1,7 @@
 package com.ssd.ssd.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +34,7 @@ public class ProjetoController {
 	}
 	
 	@GetMapping("/por-vinculo/{token}")
-	public ProjetoVO recuperarProjeto (@PathVariable String token) {
+	public List<ProjetoVO> recuperarProjeto (@PathVariable String token) {
 		return projetoService.recuperarProjetoUsuarioVinculado(token);
 	}
 }

@@ -1,6 +1,7 @@
 package com.ssd.ssd.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import com.ssd.ssd.repository.TimeScrumRespository;
 import com.ssd.ssd.vo.ClienteSolicitanteVO;
 import com.ssd.ssd.vo.ProjetoVO;
 import com.ssd.ssd.vo.TimeScrumVO;
+import com.ssd.ssd.vo.factory.ProjetoVOFactory;
 
 import lombok.RequiredArgsConstructor;
 
@@ -102,34 +104,26 @@ public class ProjetoService {
 				.orElseThrow(() ->new NaoEncontradoException("Projeto com ID{} " +id + "não encontrado"));
 	}
 
-	public ProjetoVO recuperarProjetoUsuarioVinculado(String token) {
+	public List<ProjetoVO> recuperarProjetoUsuarioVinculado(String token) {
 		
 		LoginUsuarioEntity usuario = usuarioService.recuperarUsuarioLogadoPorToken(token);
 				
-		ProjetoEntity projeto = null;
+		List<ProjetoEntity> projeto = new ArrayList<>();
 		
 		if(usuario.getUsuario().getPerfil().equals(PerfilEnum.PRODUCT_OWNER)) {
 			projeto = projetoRepository.buscarProjetoVinculoProductOwner(usuario.getUsuario().getId());
 		} else if(usuario.getUsuario().getPerfil().equals(PerfilEnum.SCRUM_MASTER)) {
 			projeto = projetoRepository.buscarProjetoVinculoSrcumMaster(usuario.getUsuario().getId());
 		} else if(usuario.getUsuario().getPerfil().equals(PerfilEnum.DEVELOPER)) {
-			
+			projeto = projetoRepository.buscarProjetoVinculoDesenvolvidor(usuario.getUsuario().getId());
 		}
-		if(projeto == null) {
+		if(projeto.isEmpty()) {
 			throw new NaoEncontradoException("Nenhum projeto encontrado com");
 		}
 		
-		return ProjetoVO.builder()
-				.id(projeto.getId())
-				.nome(projeto.getNome())
-				.cliente(ClienteSolicitanteVO.builder()
-						.id(projeto.getCliente().getId())
-						.cpfCnpj(projeto.getCliente().getCpfCnpj())
-						.nome(projeto.getCliente().getNome())
-						.telefone(projeto.getCliente().getTelefone())
-						.ramoAtividade(projeto.getCliente().getRamoAtividade())
-						.build())
-				.build();
+		return ProjetoVOFactory.converterListParaVO(projeto);
+		
+		/**/
 	}
 
 }

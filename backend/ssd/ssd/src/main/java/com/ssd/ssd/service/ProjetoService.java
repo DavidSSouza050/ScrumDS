@@ -89,6 +89,7 @@ public class ProjetoService {
 		return ProjetoVO.builder()
 				.id(projeto.getId())
 				.nome(projeto.getNome())
+				.status(projeto.getStatus())
 				.cliente(ClienteSolicitanteVO.builder()
 						.id(projeto.getCliente().getId())
 						.cpfCnpj(projeto.getCliente().getCpfCnpj())

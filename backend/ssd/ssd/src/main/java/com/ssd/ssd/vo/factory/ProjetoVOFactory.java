@@ -16,6 +16,7 @@ public class ProjetoVOFactory {
 			return ProjetoVO.builder()
 					.id(projeto.getId())
 					.nome(projeto.getNome())
+					.status(projeto.getStatus())
 					.descricao(projeto.getDescricao())
 					.times(TimesVOFactory.conveterListParaVO(projeto.getDevenvolvidores()))
 					.cliente(ClienteSolicitanteVO.builder()

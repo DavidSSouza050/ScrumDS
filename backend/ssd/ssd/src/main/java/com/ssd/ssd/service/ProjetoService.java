@@ -18,7 +18,6 @@ import com.ssd.ssd.exception.MsgException;
 import com.ssd.ssd.exception.NaoEncontradoException;
 import com.ssd.ssd.repository.ProjetoRepository;
 import com.ssd.ssd.repository.TimeScrumRespository;
-import com.ssd.ssd.vo.ClienteSolicitanteVO;
 import com.ssd.ssd.vo.ProjetoVO;
 import com.ssd.ssd.vo.TimeScrumVO;
 import com.ssd.ssd.vo.factory.ProjetoVOFactory;
@@ -86,18 +85,7 @@ public class ProjetoService {
 		
 		ProjetoEntity projeto = recuperarProjetoPorId(id);
 		
-		return ProjetoVO.builder()
-				.id(projeto.getId())
-				.nome(projeto.getNome())
-				.status(projeto.getStatus())
-				.cliente(ClienteSolicitanteVO.builder()
-						.id(projeto.getCliente().getId())
-						.cpfCnpj(projeto.getCliente().getCpfCnpj())
-						.nome(projeto.getCliente().getNome())
-						.telefone(projeto.getCliente().getTelefone())
-						.ramoAtividade(projeto.getCliente().getRamoAtividade())
-						.build())
-				.build();
+		return ProjetoVOFactory.converterParaVO(projeto);
 	}
 
 	private ProjetoEntity recuperarProjetoPorId(Long id) {

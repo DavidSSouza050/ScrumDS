@@ -46,5 +46,7 @@ public class ProjetoVO implements Serializable {
 	
 	@NotNull(message = "ID usuário product owner é um campo obrigatório")
 	private Long idProductOwner;
+	
+	private String donoProduto;
 
 }

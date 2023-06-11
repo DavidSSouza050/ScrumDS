@@ -111,7 +111,7 @@ public class ProjetoService {
 			projeto = projetoRepository.buscarProjetoVinculoDesenvolvidor(usuario.getUsuario().getId());
 		}
 		if(projeto.isEmpty()) {
-			throw new NaoEncontradoException("Nenhum projeto encontrado com");
+			throw new NaoEncontradoException("Nenhum projeto está vinculado com " +usuario.getUsuario().getNome());
 		}
 		
 		return ProjetoVOFactory.converterListParaVO(projeto);

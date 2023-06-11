@@ -37,13 +37,13 @@ public class ProjetoService {
 		
 		validarCpfCnpjCliente(projetoVO.getCliente().getCpfCnpj());
 		
-		UsuarioEntity usuarioScrum = usuarioService.recuperarUsuario(projetoVO.getIdUsuarioScrum());
+		UsuarioEntity usuarioProduct = usuarioService.recuperarUsuario(projetoVO.getIdProductOwner());
 		
-		if(usuarioScrum.getPerfil() != PerfilEnum.SCRUM_MASTER) {
-			throw new MsgException("A criação do projeto é permitido pelo usuário Scrum Master");
+		if(usuarioProduct.getPerfil() != PerfilEnum.PRODUCT_OWNER) {
+			throw new MsgException("A criação do projeto é permitido pelo usuário Product Owner");
 		}
 		
-		UsuarioEntity usuarioProduct = usuarioService.recuperarUsuario(projetoVO.getIdProductOwner());
+		UsuarioEntity usuarioScrum = usuarioService.recuperarUsuario(projetoVO.getIdUsuarioScrum());
 		
 		ClienteSolicitanteEntity cliente = ClienteSolicitanteEntityFactory.converterParaVO(projetoVO.getCliente());
 		
@@ -63,6 +63,10 @@ public class ProjetoService {
 		times.forEach(t-> {
 			
 			UsuarioEntity usuarioTime = usuarioService.recuperarUsuario(t.getIdUsuario());
+			
+			if(usuarioTime.getPerfil() != PerfilEnum.DEVELOPER) {
+				throw new MsgException("Usuário com ID " +usuarioTime.getId() + " não tem perfil de desenvolvidor");
+			}
 			
 			TimeScrumEntity timeEntity = TimeScrumEntity.builder()
 					.usuario(usuarioTime)

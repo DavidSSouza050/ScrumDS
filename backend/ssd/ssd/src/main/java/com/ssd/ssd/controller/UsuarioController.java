@@ -61,7 +61,7 @@ public class UsuarioController {
 		return usuarioService.recuperarDesenvolidores(cpf);
 	}
 	
-	@GetMapping("/product-owner/{cpf}")
+	@GetMapping("/scrum/{cpf}")
 	public UsuarioVO recuperarProdutOwner(@PathVariable String cpf) {
 		return usuarioService.recuperarProdutOwner(cpf);
 	}

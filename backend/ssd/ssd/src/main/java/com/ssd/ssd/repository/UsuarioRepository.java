@@ -27,8 +27,8 @@ public interface UsuarioRepository  extends JpaRepository<UsuarioEntity, Long>{
 	
 	@Query("SELECT usuario FROM UsuarioEntity usuario "
 			+"WHERE usuario.cpf = :cpf "
-			+"AND usuario.perfil = :product ")
-	Optional<UsuarioEntity> findUsurioPefilProdutOwner(String cpf, PerfilEnum product);
+			+"AND usuario.perfil = :scrum ")
+	Optional<UsuarioEntity> findUsurioPerfilScrum(String cpf, PerfilEnum scrum);
 	
 	
 	

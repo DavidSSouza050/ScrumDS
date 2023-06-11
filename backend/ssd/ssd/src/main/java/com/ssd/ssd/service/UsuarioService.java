@@ -226,11 +226,14 @@ public class UsuarioService {
 
 		validarCpf(cpf);
 
-		UsuarioEntity usuarioByCpf = usuarioRepository.findUsurioPefilProdutOwner(cpf, PerfilEnum.PRODUCT_OWNER)
+		UsuarioEntity usuarioByCpf = usuarioRepository.findUsurioPerfilScrum(cpf, PerfilEnum.SCRUM_MASTER)
 				.orElseThrow(() -> new NaoEncontradoException("Usuário com " + cpf + " não encontrado"));
 
-		return UsuarioVO.builder().id(usuarioByCpf.getId()).nomeCompleto(usuarioByCpf.getNome())
-				.perfil(usuarioByCpf.getPerfil()).build();
+		return UsuarioVO.builder()
+				.id(usuarioByCpf.getId())
+				.nomeCompleto(usuarioByCpf.getNome())
+				.perfil(usuarioByCpf.getPerfil())
+				.build();
 	}
 
 }

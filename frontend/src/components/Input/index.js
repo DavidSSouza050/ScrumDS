@@ -28,10 +28,10 @@ export function InputGray(props) {
             <label className="labelInputGray" for={props.title}>{props.title}</label>
             <div className='containerTextInputGray'>
                 <input className="InputTextGray" 
-                    disabled={props.disabled} 
-                    type={props.type} 
-                    maxLength={props.maxLength}
+                    disabled={props.disabled}  
+                    type={props.type}
                     placeholder={props.placeholder} 
+                    maxLength={props.maxLength}
                     name={props.name} 
                     id={props.title}
                     value={props.value}

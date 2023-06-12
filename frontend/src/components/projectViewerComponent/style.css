@@ -41,7 +41,8 @@
 
 #listParticipants{
     width: 100%;
-    height: 150px;
+    height: auto;
+    margin-bottom: 20px;
     overflow: auto;
 }
 

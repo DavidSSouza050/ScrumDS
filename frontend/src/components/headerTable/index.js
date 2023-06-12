@@ -8,7 +8,7 @@ export default function HeaderTable(props) {
       <div className='headerTitle left'>
         {props.title1}
       </div>
-      <div className='headerTitle'>
+      <div className={props.title3 == null ? "headerTitle right" : "headerTitle"}>
         {props.title2}
       </div>
 

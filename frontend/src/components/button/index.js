@@ -2,7 +2,7 @@ import './style.css'
 
 export default function Button(props){
     return(
-        <button className='Button' type={props.type}>{props.nome}</button>
+        <button className='Button' type={props.type} onClick={props.event}>{props.nome}</button>
     )
 }
 

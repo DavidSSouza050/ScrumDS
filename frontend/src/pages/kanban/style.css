@@ -28,14 +28,17 @@
 }
 
 .card {
+    display: flex;
     background-color: #EEE;
     color: #000;
-    text-align: left;
     padding: 10px;
     height: 40px;
     border-radius: 5px;
     margin-bottom: 10px;
+}
 
+.properties {
+    margin-left: auto;
 }
 
 .addBacklog {

@@ -2,12 +2,25 @@ import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { HeaderBack } from '../../components/hearder';
 import Back from "../../assets/svg/back.svg";
+import Properties from "../../assets/svg/properties.svg";
+import Modal from "../../components/modal";
 import './style.css';
 
 const inicialItems = [
-    {id:"1", content:"Conteúdo 1"},
-    {id:"2", content:"Conteúdo 2"},
-    {id:"3", content:"Conteúdo 3"},
+    {
+      id:"1", 
+      content:"Conteúdo 1", 
+      descricao: "Descrição"},
+    {
+      id:"2", 
+      content:"Conteúdo 2",
+      descricao: "Descrição"
+    },
+    {
+      id:"3", 
+      content:"Conteúdo 3",
+      descricao: "Descrição"
+    },
 ]
 
 const inicialColumns = [
@@ -71,6 +84,15 @@ const onDragEnd = (result, columns, setColumns) => {
 };
 
 export default function Kanban() {
+  const [id, setId] = useState('');
+  const [openModalCardView, setOpenModalCardView] = useState(false)
+
+  //Abrindo Modal do card
+  const cardSelected = (id) =>{
+    setId(id)
+    setOpenModalCardView(true)
+  }
+
   console.log()
   const [columns, setColumns] = useState(inicialColumns);
   return (
@@ -114,6 +136,7 @@ export default function Kanban() {
                                       {...provided.dragHandleProps}
                                     >
                                       {item.content}
+                                      <img src={Properties} alt='Propriedades' onClick={() => cardSelected(item.id)} className='properties'/>
                                     </div>
                                   );
                                 }}
@@ -140,6 +163,13 @@ export default function Kanban() {
           })}
         </DragDropContext>
       </div>
+
+      <Modal 
+        isOpen={openModalCardView} 
+        setModalOpen={() => setOpenModalCardView(!openModalCardView)}
+      >
+        <div>teste</div>
+      </Modal>
     </div>
   );
 }

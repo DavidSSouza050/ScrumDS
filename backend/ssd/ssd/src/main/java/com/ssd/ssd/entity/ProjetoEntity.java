@@ -69,4 +69,7 @@ public class ProjetoEntity implements Serializable{
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<TimeScrumEntity> devenvolvidores;
 	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ID_COLUNA", referencedColumnName = "IDENT", nullable=true)
+	private ColunasEntity coluna;
 }

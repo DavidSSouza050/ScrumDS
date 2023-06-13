@@ -39,7 +39,7 @@ public class ItemEntity implements Serializable {
 	private String descricao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ID_COLUNA", nullable=true)
-	private ColunasEntity colunas;
+	@JoinColumn(name="ID_COLUNA", referencedColumnName = "IDENT", nullable = true)
+	private ColunasEntity coluna;
 	
 }

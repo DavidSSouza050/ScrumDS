@@ -157,9 +157,7 @@ export function SelectDev(props) {
         <div className='containerTextInputGray'>
             <select id="SelectOfficeGray" value={props.value} name={props.name} onChange={props.event} disabled={props.disabled}>
                 <option className='optionsSelectOfficeGray' value="" selected>Selecione o Desenvolvedor</option>
-                {
-                users.map((user) => 
-                    
+                {users.map((user) => 
                     user.perfil === 'DEVELOPER' ?
                     <option className='optionsSelectOfficeGray' value={[user.id, user.nomeCompleto, user.perfil]}>{user.nomeCompleto}</option>
                     : null

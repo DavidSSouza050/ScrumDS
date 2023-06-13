@@ -1,5 +1,6 @@
 
 import { HeaderBack } from '../../components/hearder'
+import { isEqual } from 'lodash';
 import back from '../../assets/svg/back.svg'
 import './style.css'
 import Input, { InputGray } from '../../components/Input'
@@ -21,7 +22,8 @@ export default function ProjectCreate(){
     //variaveis
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [devs, setDevs] = useState([]);
+    const [devs, setDevs] = useState('');
+    const [listDev, setListDevs] = useState([]);
     const [dono, setDono] = useState('');
     const [scrum, setScrum] = useState('');
 
@@ -56,7 +58,7 @@ export default function ProjectCreate(){
             idUsuarioScrum: scrum,
         })
         .then(function (response) {
-            console.log(response);
+            //console.log(response);
             //limpando as caixas e redirecionando para a pagina login
             setNome('');
             setDescricao('');
@@ -78,20 +80,20 @@ export default function ProjectCreate(){
     };
 
     const  handleClickSave = () => {
-        new Promise((resolve) => {
-            resolve([devs]);
-          }).then((dados) => {
-            //this.setTime(devs[0]);
-            console.log(time)
+        if (!listDev.some(list => isEqual(list, devs))){
+            setListDevs([...listDev, devs])
+            setTime(oldArray => [...oldArray, {idUsuario: devs[0]}])
             setOpenModalUser(!openModalUser)
-          });
-
+        } else {
+            alert("Desenvolvedor já adicionado")    
+        }
+        
     }
 
     return(
-
+        
         <div id="containerCreateProjectFull">  
-
+            {console.log(time)}
             <HeaderBack
                 title="Cadastro de Projeto"
                 icon={back}
@@ -188,7 +190,7 @@ export default function ProjectCreate(){
                         title3={null}
                     />
                     <div id="listParticipants">
-                        {devs.map(dev =>
+                        {listDev.map(dev =>
                             <BodyTable 
                                 nome={dev[1]}
                                 status={dev[2]}
@@ -222,10 +224,11 @@ export default function ProjectCreate(){
                     title="Escolha o desenvolvedor"
                     type="text"
                     placeholder=""
-                    event={(event) => 
+                    event={(event) =>
                             [
-                            setDevs(oldArray => [...oldArray, event.target.value.split(",")]),
-                            setTime(oldArray => [...oldArray, {idUsuario: event.target.value.split(",")[0]}])
+                            //setListDevs(oldArray => [...oldArray, event.target.value.split(",")]),
+                            setDevs(event.target.value.split(","))
+                            //setTime(oldArray => [...oldArray, {idUsuario: event.target.value.split(",")[0]}])
                             ]
                         }
                 />

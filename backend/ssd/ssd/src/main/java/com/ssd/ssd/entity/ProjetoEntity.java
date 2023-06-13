@@ -69,6 +69,4 @@ public class ProjetoEntity implements Serializable{
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<TimeScrumEntity> devenvolvidores;
 	
-	//listar usuarios po e dev por cpf
-
 }

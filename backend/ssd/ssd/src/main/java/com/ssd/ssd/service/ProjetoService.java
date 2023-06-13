@@ -14,8 +14,10 @@ import com.ssd.ssd.entity.UsuarioEntity;
 import com.ssd.ssd.entity.factory.ClienteSolicitanteEntityFactory;
 import com.ssd.ssd.entity.factory.ProjetoEntityFactory;
 import com.ssd.ssd.enumerator.PerfilEnum;
+import com.ssd.ssd.enumerator.SituacaoEnum;
 import com.ssd.ssd.exception.MsgException;
 import com.ssd.ssd.exception.NaoEncontradoException;
+import com.ssd.ssd.repository.ClienteSolicitanteRepository;
 import com.ssd.ssd.repository.ProjetoRepository;
 import com.ssd.ssd.repository.TimeScrumRespository;
 import com.ssd.ssd.vo.ProjetoVO;
@@ -30,6 +32,7 @@ public class ProjetoService {
 	
 	private final ProjetoRepository projetoRepository;
 	private final TimeScrumRespository timeScrumRespository;
+	private final ClienteSolicitanteRepository clienteSolicitanteRepository;
 	
 	private final UsuarioService usuarioService;
 	
@@ -56,6 +59,63 @@ public class ProjetoService {
 		return ProjetoVO.builder()
 				.id(projetoEntity.getId())
 				.build();
+	}
+	
+	public ProjetoVO atualizar(ProjetoVO projetoVO) {
+
+		validarCpfCnpjCliente(projetoVO.getCliente().getCpfCnpj());
+		
+		validarStatus(projetoVO.getStatus());
+		UsuarioEntity usuarioProduct = usuarioService.recuperarUsuario(projetoVO.getIdProductOwner());
+
+		if (usuarioProduct.getPerfil() != PerfilEnum.PRODUCT_OWNER) {
+			throw new MsgException("A criação do projeto é permitido pelo usuário Product Owner");
+		}
+		
+		ProjetoEntity projetoBanco = recuperarProjetoPorId(projetoVO.getId());
+
+		UsuarioEntity usuarioScrum = usuarioService.recuperarUsuario(projetoVO.getIdUsuarioScrum());
+
+		ClienteSolicitanteEntity clienteSolicitanteBanco =  recuperarClienteSolicitante(projetoBanco.getCliente().getId());
+		clienteSolicitanteBanco.setNome(projetoVO.getCliente().getNome());
+		clienteSolicitanteBanco.setCpfCnpj(projetoVO.getCliente().getCpfCnpj());
+		clienteSolicitanteBanco.setDataCadastro(LocalDateTime.now());
+		clienteSolicitanteBanco.setTelefone(projetoVO.getCliente().getTelefone());
+		clienteSolicitanteBanco.setEmail(projetoVO.getCliente().getEmail());
+		clienteSolicitanteBanco.setRamoAtividade(projetoVO.getCliente().getRamoAtividade());
+		
+		projetoBanco.setNome(projetoVO.getNome());
+		projetoBanco.setStatus(projetoVO.getStatus());
+		projetoBanco.setDescricao(projetoVO.getDescricao());
+		projetoBanco.setScrumMaster(usuarioScrum);
+		projetoBanco.setCliente(clienteSolicitanteBanco);
+		projetoBanco.setProdutOwner(usuarioScrum);
+		
+		clienteSolicitanteBanco = clienteSolicitanteRepository.save(clienteSolicitanteBanco);
+		projetoBanco = projetoRepository.save(projetoBanco);
+
+		deletarListaTimes(projetoBanco);
+		gravarListaDesenvolvidores(projetoBanco, projetoVO.getTimes());
+
+		return ProjetoVO.builder().id(projetoBanco.getId()).build();
+	}
+
+	private void validarStatus(SituacaoEnum status) {
+		if(status.equals(SituacaoEnum.CADASTRADO)){
+			throw new MsgException("Não é permitido atualização de status para cadastrado");
+		}
+	}
+
+	private ClienteSolicitanteEntity recuperarClienteSolicitante(Long id) {
+		return clienteSolicitanteRepository.findById(id)
+				.orElseThrow(() -> new NaoEncontradoException("Cliente Solicitante não encontrado " + id));
+	}
+
+	private void deletarListaTimes(ProjetoEntity projetoEntity) {
+			List<TimeScrumEntity> times = timeScrumRespository.findByProjetoId(projetoEntity.getId());
+			if(!times.isEmpty()) {
+				times.forEach(timeScrumRespository::delete);
+			}
 	}
 
 	private void gravarListaDesenvolvidores(ProjetoEntity projetoEntity, List<TimeScrumVO> times) {

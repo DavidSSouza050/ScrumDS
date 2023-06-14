@@ -8,7 +8,7 @@ import { InputGray } from '../../components/Input'
 import Button, { ButtonGray } from '../../components/button'
 import image from  '../../assets/svg/image.svg'
 import uploadImage from '../../assets/svg/uploadImage.svg'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { SelectGray } from '../../components/select'
 import { insertMaskInCpf } from '../../utils/masks/cpf'
 
@@ -22,8 +22,6 @@ export default function Perfil(){
     const [cpf, setCpf] = useState('');
     const [perfil, setPerfil] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
-    const [senha, setSenha] = useState('');
-    const [confirmSenha, setConfirmSenha] = useState('');
 
     //*Pegando o token do usuario */
     const token = localStorage.getItem('token');
@@ -43,9 +41,7 @@ export default function Perfil(){
                 setEmail(response.data.email);
                 setCpf(response.data.cpf);
                 setPerfil(response.data.perfil);
-                setDataNascimento(response.data.dataNascimento);    
-                setSenha(response.data.senha);
-                setConfirmSenha(response.data.senhaConfirmada);
+                setDataNascimento(response.data.dataNascimento); 
             } catch (error) {
                 console.error(error);
             }
@@ -58,30 +54,24 @@ export default function Perfil(){
     const updateUser = (event) => {
         event.preventDefault(); // Evita o comportamento padrão do formulário
         
-        if(senha === confirmSenha){
-            // Enviando dados para API
-            axios.put('http://localhost:8080/sistemas-solucoes-digitais/usuarios', {
-                id: id,
-                nomeCompleto: nome,
-                email: email,
-                dataNascimento: dataNascimento,
-                senha: senha,
-                senhaConfirmada: confirmSenha,
-                perfil: perfil
-            })
-            .then(function (response) {
-                console.log(response);
-                /*atualizando a pagina */
-                alert('Dados Atualizados com sucesso!')
-                location('/perfil', { replace: true });
-            })
-            .catch(function (error) {
-                console.log(error);
-                alert('Ocorreu um erro, tente novamente!')
-            })
-        }else{
-            alert("As senhas preicsão ser iguais");
-        }
+        // Enviando dados para API
+        axios.put('http://localhost:8080/sistemas-solucoes-digitais/usuarios', {
+            id: id,
+            nomeCompleto: nome,
+            email: email,
+            dataNascimento: dataNascimento,
+            perfil: perfil
+        })
+        .then(function (response) {
+            console.log(response);
+            /*atualizando a pagina */
+            alert('Dados Atualizados com sucesso!')
+            location('/perfil', { replace: true });
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert('Ocorreu um erro, tente novamente!')
+        })
     };
 
 
@@ -135,7 +125,7 @@ export default function Perfil(){
                             event={(event) => setCpf(event.target.value)}
                         />
 
-                        <div id='containerFormGroup'>   
+                        <div id='containerFormGroupPerfil'>   
                             
                             <div className='formGroup'>
                                 
@@ -167,9 +157,12 @@ export default function Perfil(){
                                 />
                             </div>
                             <div className='itemButton'>
-                                <ButtonGray
-                                    nome="Cancelar"
-                                />
+                                <Link to='/project'>
+                                
+                                    <ButtonGray
+                                        nome="Cancelar"
+                                    />
+                                </Link>
                             </div>
                         </div>
                     </div>

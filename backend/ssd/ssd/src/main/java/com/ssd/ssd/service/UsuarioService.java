@@ -143,15 +143,13 @@ public class UsuarioService {
 	@Transactional
 	public UsuarioVO alterar(UsuarioVO usuario) {
 
-		validarSenhaConfirmada(usuario.getSenha(), usuario.getSenhaConfirmada());
+		//validarSenhaConfirmada(usuario.getSenha(), usuario.getSenhaConfirmada());
 		UsuarioEntity usuarioBanco = recuperarUsuario(usuario.getId());
 
 		usuarioBanco.setDataNascimento(usuario.getDataNascimento());
 		usuarioBanco.setNome(usuario.getNomeCompleto());
 		usuarioBanco.setEmail(usuario.getEmail());
 		usuarioBanco.setPerfil(usuario.getPerfil());
-//		usuarioBanco.setSenha(Encrypt.getHash(usuario.getSenha()));
-//		usuarioBanco.setSenhaConfirmada(Encrypt.getHash(usuario.getSenhaConfirmada()));
 
 		usuarioRepository.save(usuarioBanco);
 

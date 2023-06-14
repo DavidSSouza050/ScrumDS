@@ -14,6 +14,7 @@ import TextArea from '../../components/textarea'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { SelectDev, SelectDono, SelectScrum, SelectSegmento } from '../../components/select'
+import { insertMaskInCpf } from '../../utils/masks/cpf';
 
 export default function ProjectCreate(){
     // Modal de pesquisa de desenvolvedores
@@ -149,10 +150,10 @@ export default function ProjectCreate(){
                         </div>
                         <div className='formGroupProjectViwerComponent'>
                             <InputGray
-                                title="CPF/CNPJ do Cliente"
+                                title="CPF do Cliente"
                                 placeholder="Técnologia"
                                 type="text"
-                                value={cpfCnpjCliente}
+                                value={insertMaskInCpf(cpfCnpjCliente)}
                                 event={(event) => setCpfCnpjCliente(event.target.value)}
                             />
                         </div>

@@ -5,6 +5,8 @@ import Back from "../../assets/svg/back.svg";
 import Properties from "../../assets/svg/properties.svg";
 import Modal from "../../components/modal";
 import './style.css';
+import Input, { InputGray } from "../../components/Input";
+import TextArea from "../../components/textarea";
 
 const inicialItems = [
     {
@@ -95,6 +97,8 @@ export default function Kanban() {
 
   console.log()
   const [columns, setColumns] = useState(inicialColumns);
+  const [items, setItems] = useState(inicialItems);
+
   return (
     <div>
         <HeaderBack
@@ -168,7 +172,13 @@ export default function Kanban() {
         isOpen={openModalCardView} 
         setModalOpen={() => setOpenModalCardView(!openModalCardView)}
       >
-        <div>teste</div>
+        <InputGray
+          title="Título"
+          value={items.name}
+        />
+        <TextArea 
+          title="Descrição"
+        />
       </Modal>
     </div>
   );

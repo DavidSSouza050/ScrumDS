@@ -159,40 +159,17 @@ export default function Perfil(){
                             
                         </div>
 
-                        
-                        <div id="containerChangePassword">
-                            <div id="titleChangePassword">
-                                Alterar Senha
+                        <div id="containerButtonPerfil">
+                            <div className='itemButton'>
+                                <Button
+                                    nome="Salvar"
+                                    type="submit"
+                                />
                             </div>
-                            
-                            <InputGray
-                                title="Senha"
-                                placeholder="************"
-                                type="password"
-                                value={senha}
-                                event={(event) => setSenha(event.target.value)}
-                            />
-                            
-                            <InputGray
-                                title="Confirmar Senha"
-                                placeholder="***********"
-                                type="password"
-                                value={confirmSenha}
-                                event={(event) => setConfirmSenha(event.target.value)}
-                            />
-
-                            <div id="containerButtonPerfil">
-                                <div className='itemButton'>
-                                    <Button
-                                        nome="Salvar"
-                                        type="submit"
-                                    />
-                                </div>
-                                <div className='itemButton'>
-                                    <ButtonGray
-                                        nome="Cancelar"
-                                    />
-                                </div>
+                            <div className='itemButton'>
+                                <ButtonGray
+                                    nome="Cancelar"
+                                />
                             </div>
                         </div>
                     </div>

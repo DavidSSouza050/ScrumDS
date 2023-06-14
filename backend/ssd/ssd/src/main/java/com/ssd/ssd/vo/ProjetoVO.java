@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.ssd.ssd.enumerator.SituacaoEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +33,7 @@ public class ProjetoVO implements Serializable {
 	private String descricao;
 	
 //	@NotNull(message = "Status é um campo obrigatório")
-//	private SituacaoEnum status;
+	private SituacaoEnum status;
 	
 	@Builder.Default
 	private List<TimeScrumVO> times = new ArrayList<>();
@@ -44,5 +46,7 @@ public class ProjetoVO implements Serializable {
 	
 	@NotNull(message = "ID usuário product owner é um campo obrigatório")
 	private Long idProductOwner;
+	
+	private String donoProduto;
 
 }

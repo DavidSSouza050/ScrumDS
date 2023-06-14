@@ -58,7 +58,7 @@ export default function UserCreate(){
                 console.log(error);
             })
         }else{
-            alert("As senhas preicsão ser iguais");
+            alert("As senhas precisão ser iguais");
         }
     };
 

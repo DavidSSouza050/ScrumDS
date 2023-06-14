@@ -15,6 +15,7 @@ public class TimesVOFactory {
 					.idUsuario(entity.getUsuario().getId())
 					.cpf(entity.getUsuario().getCpf())
 					.nome(entity.getUsuario().getNome())
+					.perfil(entity.getPerfil())
 					.build();
 		}else 
 			return null;

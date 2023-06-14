@@ -18,13 +18,12 @@ import UserViewerComponent from '../../components/userViewerComponent';
 import ProjectViwerComponent from '../../components/projectViewerComponent';
 import axios from 'axios';
 
-
-
 export default function Project() {
     const [id, setId] = useState('');
     const [perfil, setPerfil] = useState('');
     const [toggleState, setToggleState] = useState(1);
     const [dataUsuarios, setDataUsuarios] = useState([])
+    const [dataProjetos, setDataProjetos] = useState([])
     const [openModalUserView, setOpenModalUserView] = useState(false)
     const [openModalProjectView, setOpenModalProjectView] = useState(false)
 
@@ -34,6 +33,7 @@ export default function Project() {
 
   //*Pegando o token do usuario */
   const token = localStorage.getItem('token');
+  console.log(token)
   
   //fazendo a requisição do usuario ao abrir a pagina
     useEffect(() => {
@@ -53,6 +53,23 @@ export default function Project() {
         
     }, []);
 
+    //fazendo a requisição dos projetos que o usuário participa
+    useEffect(() => {
+        const getProject = async () => {
+          try {
+                const response = await axios.get(`http://localhost:8080/sistemas-solucoes-digitais/usuarios/token/${token}`);
+                console.log('caiu aqui');
+                listarProjetos();
+                
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        
+        getProject();
+        
+    }, []);
+
 
     const listarUsuarios = (perfil) => {
         if(perfil !== 'DEVELOPER'){
@@ -64,6 +81,16 @@ export default function Project() {
                 console.log(error)
             })
         }
+    }
+
+    const listarProjetos = () => {
+        axios.get(`http://localhost:8080/sistemas-solucoes-digitais/projeto/por-vinculo/${token}`, {})
+        .then(function (response) {
+            setDataProjetos(response.data);
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
     }
 
 
@@ -86,19 +113,11 @@ export default function Project() {
         setOpenModalUserView(true)
     }
 
-
-
-
-    const dataProject = [
-        {
-            "nome": "Padaria",
-            "status": "Em andamento",
-        },
-        {
-            "nome": "Mercearia",
-            "status": "Cancelado",
-        }
-    ];
+    //Abrindo Modal com os dados do projeto
+    const projectSelected = (id) =>{
+        setId(id)
+        setOpenModalProjectView(true)
+    }
 
     return (
 
@@ -144,26 +163,31 @@ export default function Project() {
                         title3=""
                     />
 
-                    {dataProject.map((projeto) =>
+                    {dataProjetos.map((projeto) =>
 
                         <BodyTable
                             nome={projeto.nome}
                             status={projeto.status}
                             information={information}
-                            event={() => setOpenModalProjectView(true)}
+                            event={() => projectSelected(projeto.id)}
                         />
 
                     )}
-            
-                    <div id="containerButtonProject">
-                        <div id="buttonNewProject">
-                            <Link to="/projectCreate">
-                                <Button
-                                    nome="Novo Projeto"
-                                />
-                            </Link>
+                    { 
+                        perfil !== 'DEVELOPER' ?
+                        <div id="containerButtonProject">
+                            <div id="buttonNewProject">
+                                <Link to="/projectCreate">
+                                    <Button
+                                        nome="Novo Projeto"
+                                    />
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                        : null
+                    }
+            
+  
                 </div>
 
 
@@ -207,7 +231,9 @@ export default function Project() {
                 isOpen={openModalProjectView} 
                 setModalOpen={() => setOpenModalProjectView(!openModalProjectView)}
             >
-                <ProjectViwerComponent/>
+                <ProjectViwerComponent
+                    id={id}
+                />
             </Modal>
         </div>
     )

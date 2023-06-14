@@ -10,7 +10,7 @@ export default function BodyTable(props) {
         <div className='bodyItem left'>
             {props.nome}
         </div>
-        <div className='bodyItem'>
+        <div className={props.information == null ? "bodyItem right" : "bodyItem"}>
             <spam className="colorStatus"/>
             {props.status}
         </div>

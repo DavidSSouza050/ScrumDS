@@ -41,7 +41,7 @@
     padding-left: 10px;
 }
 
-.InputText::placeholder{
+.InputText:placeholder{
     color: #e1e1e6d6
 }
 
@@ -96,8 +96,8 @@
     padding-left: 10px;
 }
 
-.InputTextGray::placeholder{
-    color: #3d3d3d
+.InputTextGray:placeholder{
+    color: #AAA;
 }
 
 .containerTextInputGray:hover{
